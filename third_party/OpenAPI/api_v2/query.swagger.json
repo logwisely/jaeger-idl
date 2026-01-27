@@ -1,0 +1,586 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "api_v2/query.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "QueryService"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/archive/{traceId}": {
+      "post": {
+        "operationId": "QueryService_ArchiveTrace",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/api_v2ArchiveTraceResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "traceId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "byte"
+          },
+          {
+            "name": "startTime",
+            "description": "Optional. The start time to search trace ID.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "endTime",
+            "description": "Optional. The end time to search trace ID.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          }
+        ],
+        "tags": [
+          "QueryService"
+        ]
+      }
+    },
+    "/dependencies": {
+      "get": {
+        "operationId": "QueryService_GetDependencies",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/jaegerapi_v2GetDependenciesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "startTime",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "endTime",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          }
+        ],
+        "tags": [
+          "QueryService"
+        ]
+      }
+    },
+    "/operations": {
+      "get": {
+        "operationId": "QueryService_GetOperations",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/jaegerapi_v2GetOperationsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "service",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "spanKind",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "QueryService"
+        ]
+      }
+    },
+    "/search": {
+      "post": {
+        "operationId": "QueryService_FindTraces",
+        "responses": {
+          "200": {
+            "description": "A successful response.(streaming responses)",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "$ref": "#/definitions/api_v2SpansResponseChunk"
+                },
+                "error": {
+                  "$ref": "#/definitions/googlerpcStatus"
+                }
+              },
+              "title": "Stream result of api_v2SpansResponseChunk"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/jaegerapi_v2FindTracesRequest"
+            }
+          }
+        ],
+        "tags": [
+          "QueryService"
+        ]
+      }
+    },
+    "/services": {
+      "get": {
+        "operationId": "QueryService_GetServices",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/jaegerapi_v2GetServicesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "QueryService"
+        ]
+      }
+    },
+    "/traces/{traceId}": {
+      "get": {
+        "operationId": "QueryService_GetTrace",
+        "responses": {
+          "200": {
+            "description": "A successful response.(streaming responses)",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "$ref": "#/definitions/api_v2SpansResponseChunk"
+                },
+                "error": {
+                  "$ref": "#/definitions/googlerpcStatus"
+                }
+              },
+              "title": "Stream result of api_v2SpansResponseChunk"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "traceId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "byte"
+          },
+          {
+            "name": "startTime",
+            "description": "Optional. The start time to search trace ID.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "endTime",
+            "description": "Optional. The end time to search trace ID.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "rawTraces",
+            "description": "Optional. If set to true, the response will not include any\nenrichments to the trace, such as clock skew adjustment.\nInstead, the trace will be returned exactly as stored.",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "tags": [
+          "QueryService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "api_v2ArchiveTraceResponse": {
+      "type": "object"
+    },
+    "api_v2DependencyLink": {
+      "type": "object",
+      "properties": {
+        "parent": {
+          "type": "string"
+        },
+        "child": {
+          "type": "string"
+        },
+        "callCount": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "source": {
+          "type": "string"
+        }
+      }
+    },
+    "api_v2Log": {
+      "type": "object",
+      "properties": {
+        "timestamp": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/jaegerapi_v2KeyValue"
+          }
+        }
+      }
+    },
+    "api_v2Process": {
+      "type": "object",
+      "properties": {
+        "serviceName": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/jaegerapi_v2KeyValue"
+          }
+        }
+      }
+    },
+    "api_v2SpanRef": {
+      "type": "object",
+      "properties": {
+        "traceId": {
+          "type": "string",
+          "format": "byte"
+        },
+        "spanId": {
+          "type": "string",
+          "format": "byte"
+        },
+        "refType": {
+          "$ref": "#/definitions/api_v2SpanRefType"
+        }
+      }
+    },
+    "api_v2SpanRefType": {
+      "type": "string",
+      "enum": [
+        "CHILD_OF",
+        "FOLLOWS_FROM"
+      ],
+      "default": "CHILD_OF"
+    },
+    "api_v2SpansResponseChunk": {
+      "type": "object",
+      "properties": {
+        "spans": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/jaegerapi_v2Span"
+          }
+        }
+      }
+    },
+    "api_v2ValueType": {
+      "type": "string",
+      "enum": [
+        "STRING",
+        "BOOL",
+        "INT64",
+        "FLOAT64",
+        "BINARY"
+      ],
+      "default": "STRING"
+    },
+    "googlerpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "jaegerapi_v2FindTracesRequest": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "$ref": "#/definitions/jaegerapi_v2TraceQueryParameters"
+        }
+      }
+    },
+    "jaegerapi_v2GetDependenciesResponse": {
+      "type": "object",
+      "properties": {
+        "dependencies": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/api_v2DependencyLink"
+          }
+        }
+      }
+    },
+    "jaegerapi_v2GetOperationsResponse": {
+      "type": "object",
+      "properties": {
+        "operationNames": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "deprecated"
+        },
+        "operations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/jaegerapi_v2Operation"
+          }
+        }
+      }
+    },
+    "jaegerapi_v2GetServicesResponse": {
+      "type": "object",
+      "properties": {
+        "services": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "jaegerapi_v2KeyValue": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "vType": {
+          "$ref": "#/definitions/api_v2ValueType"
+        },
+        "vStr": {
+          "type": "string"
+        },
+        "vBool": {
+          "type": "boolean"
+        },
+        "vInt64": {
+          "type": "string",
+          "format": "int64"
+        },
+        "vFloat64": {
+          "type": "number",
+          "format": "double"
+        },
+        "vBinary": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "jaegerapi_v2Operation": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "spanKind": {
+          "type": "string"
+        }
+      }
+    },
+    "jaegerapi_v2Span": {
+      "type": "object",
+      "properties": {
+        "traceId": {
+          "type": "string",
+          "format": "byte"
+        },
+        "spanId": {
+          "type": "string",
+          "format": "byte"
+        },
+        "operationName": {
+          "type": "string"
+        },
+        "references": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/api_v2SpanRef"
+          }
+        },
+        "flags": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "startTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "duration": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/jaegerapi_v2KeyValue"
+          }
+        },
+        "logs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/api_v2Log"
+          }
+        },
+        "process": {
+          "$ref": "#/definitions/api_v2Process"
+        },
+        "processId": {
+          "type": "string"
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "jaegerapi_v2TraceQueryParameters": {
+      "type": "object",
+      "properties": {
+        "serviceName": {
+          "type": "string"
+        },
+        "operationName": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "startTimeMin": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "startTimeMax": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "durationMin": {
+          "type": "string"
+        },
+        "durationMax": {
+          "type": "string"
+        },
+        "searchDepth": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "rawTraces": {
+          "type": "boolean",
+          "description": "Optional. If set to true, the response will not include any\nenrichments to the trace, such as clock skew adjustment.\nInstead, the trace will be returned exactly as stored."
+        }
+      },
+      "description": "Query parameters to find traces. Except for num_traces, all fields should be treated\nas forming a conjunction, e.g., \"service_name='X' AND operation_name='Y' AND ...\".\nAll fields are matched against individual spans, not at the trace level.\nThe returned results contain traces where at least one span matches the conditions.\nWhen num_traces results in fewer traces returned, there is no required ordering.\n\nNote: num_traces should restrict the number of traces returned, but not all backends\ninterpret it this way. For instance, in Cassandra this limits the number of _spans_\nthat match the conditions, and the resulting number of traces can be less.\n\nNote: some storage implementations do not guarantee the correct implementation of all parameters."
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    }
+  }
+}

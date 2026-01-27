@@ -1,0 +1,8 @@
+version: v2
+name: github.com/jaegertracing/jaeger-idl
+
+deps:
+  - buf.build/gogo/protobuf
+  - buf.build/googleapis/googleapis
+  - buf.build/grpc-ecosystem/grpc-gateway
+  - buf.build/opentelemetry/opentelemetry:038316eb65414db8bb0cd88c47a4ee0f #https://buf.build/opentelemetry/opentelemetry/tree/main:opentelemetry/proto

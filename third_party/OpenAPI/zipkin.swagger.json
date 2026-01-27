@@ -1,0 +1,177 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "zipkin.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "SpanService"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {},
+  "definitions": {
+    "SpanKind": {
+      "type": "string",
+      "enum": [
+        "SPAN_KIND_UNSPECIFIED",
+        "CLIENT",
+        "SERVER",
+        "PRODUCER",
+        "CONSUMER"
+      ],
+      "default": "SPAN_KIND_UNSPECIFIED",
+      "description": "When present, kind clarifies timestamp, duration and remote_endpoint. When\nabsent, the span is local or incomplete. Unlike client and server, there\nis no direct critical path latency relationship between producer and\nconsumer spans.\n\n - SPAN_KIND_UNSPECIFIED: Default value interpreted as absent.\n - CLIENT: The span represents the client side of an RPC operation, implying the\nfollowing:\n\ntimestamp is the moment a request was sent to the server.\nduration is the delay until a response or an error was received.\nremote_endpoint is the server.\n - SERVER: The span represents the server side of an RPC operation, implying the\nfollowing:\n\ntimestamp is the moment a client request was received.\nduration is the delay until a response was sent or an error.\nremote_endpoint is the client.\n - PRODUCER: The span represents production of a message to a remote broker, implying\nthe following:\n\ntimestamp is the moment a message was sent to a destination.\nduration is the delay sending the message, such as batching.\nremote_endpoint is the broker.\n - CONSUMER: The span represents consumption of a message from a remote broker, not\ntime spent servicing it. For example, a message processor would be an\nin-process child span of a consumer. Consumer spans imply the following:\n\ntimestamp is the moment a message was received from an origin.\nduration is the delay consuming the message, such as from backlog.\nremote_endpoint is the broker."
+    },
+    "googlerpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "proto3Endpoint": {
+      "type": "object",
+      "properties": {
+        "serviceName": {
+          "type": "string",
+          "description": "Lower-case label of this node in the service graph, such as \"favstar\".\nLeave absent if unknown.\n\nThis is a primary label for trace lookup and aggregation, so it should be\nintuitive and consistent. Many use a name from service discovery."
+        },
+        "ipv4": {
+          "type": "string",
+          "format": "byte",
+          "description": "4 byte representation of the primary IPv4 address associated with this\nconnection. Absent if unknown."
+        },
+        "ipv6": {
+          "type": "string",
+          "format": "byte",
+          "description": "16 byte representation of the primary IPv6 address associated with this\nconnection. Absent if unknown.\n\nPrefer using the ipv4 field for mapped addresses."
+        },
+        "port": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Depending on context, this could be a listen port or the client-side of a\nsocket. Absent if unknown."
+        }
+      },
+      "description": "The network context of a node in the service graph.\n\nThe next id is 5."
+    },
+    "proto3ReportResponse": {
+      "type": "object",
+      "description": "Response for SpanService/Report RPC. This response currently does not return\nany information beyond indicating that the request has finished. That said,\nit may be extended in the future."
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "zipkinproto3Annotation": {
+      "type": "object",
+      "properties": {
+        "timestamp": {
+          "type": "string",
+          "format": "uint64",
+          "description": "Epoch microseconds of this event.\n\nFor example, 1502787600000000 corresponds to 2017-08-15 09:00 UTC\n\nThis value should be set directly by instrumentation, using the most\nprecise value possible. For example, gettimeofday or multiplying epoch\nmillis by 1000."
+        },
+        "value": {
+          "type": "string",
+          "description": "While possible to add larger data, such as garbage collection details, low\ncardinality event names both keep the size of spans down and also are easy\nto search against.",
+          "title": "Usually a short tag indicating an event, like \"error\""
+        }
+      },
+      "description": "The next id is 3.",
+      "title": "Associates an event that explains latency with a timestamp.\nUnlike log statements, annotations are often codes. Ex. \"ws\" for WireSend"
+    },
+    "zipkinproto3Span": {
+      "type": "object",
+      "properties": {
+        "traceId": {
+          "type": "string",
+          "format": "byte",
+          "description": "Randomly generated, unique identifier for a trace, set on all spans within\nit.\n\nThis field is required and encoded as 8 or 16 bytes, in big endian byte\norder."
+        },
+        "parentId": {
+          "type": "string",
+          "format": "byte",
+          "description": "The parent span ID or absent if this the root span in a trace."
+        },
+        "id": {
+          "type": "string",
+          "format": "byte",
+          "description": "Unique identifier for this operation within the trace.\n\nThis field is required and encoded as 8 opaque bytes."
+        },
+        "kind": {
+          "$ref": "#/definitions/SpanKind",
+          "title": "When present, used to interpret remote_endpoint"
+        },
+        "name": {
+          "type": "string",
+          "description": "The logical operation this span represents in lowercase (e.g. rpc method).\nLeave absent if unknown.\n\nAs these are lookup labels, take care to ensure names are low cardinality.\nFor example, do not embed variables into the name."
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "uint64",
+          "description": "Epoch microseconds of the start of this span, possibly absent if\nincomplete.\n\nFor example, 1502787600000000 corresponds to 2017-08-15 09:00 UTC\n\nThis value should be set directly by instrumentation, using the most\nprecise value possible. For example, gettimeofday or multiplying epoch\nmillis by 1000.\n\nThere are three known edge-cases where this could be reported absent.\n- A span was allocated but never started (ex not yet received a timestamp)\n- The span's start event was lost\n- Data about a completed span (ex tags) were sent after the fact"
+        },
+        "duration": {
+          "type": "string",
+          "format": "uint64",
+          "description": "Duration in microseconds of the critical path, if known. Durations of less\nthan one are rounded up. Duration of children can be longer than their\nparents due to asynchronous operations.\n\nFor example 150 milliseconds is 150000 microseconds."
+        },
+        "localEndpoint": {
+          "$ref": "#/definitions/proto3Endpoint",
+          "description": "The host that recorded this span, primarily for query by service name.\n\nInstrumentation should always record this. Usually, absent implies late\ndata. The IP address corresponding to this is usually the site local or\nadvertised service address. When present, the port indicates the listen\nport."
+        },
+        "remoteEndpoint": {
+          "$ref": "#/definitions/proto3Endpoint",
+          "description": "When an RPC (or messaging) span, indicates the other side of the\nconnection.\n\nBy recording the remote endpoint, your trace will contain network context\neven if the peer is not tracing. For example, you can record the IP from\nthe \"X-Forwarded-For\" header or the service name and socket of a remote\npeer."
+        },
+        "annotations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/zipkinproto3Annotation"
+          },
+          "description": "Associates events that explain latency with the time they happened."
+        },
+        "tags": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Tags give your span context for search, viewing and analysis.\n\nFor example, a key \"your_app.version\" would let you lookup traces by\nversion. A tag \"sql.query\" isn't searchable, but it can help in debugging\nwhen viewing a trace."
+        },
+        "debug": {
+          "type": "boolean",
+          "description": "True is a request to store this span even if it overrides sampling policy.\n\nThis is true when the \"X-B3-Flags\" header has a value of 1."
+        },
+        "shared": {
+          "type": "boolean",
+          "description": "True if we are contributing to a span started by another tracer (ex on a\ndifferent host)."
+        }
+      },
+      "description": "A span is a single-host view of an operation. A trace is a series of spans\n(often RPC calls) which nest to form a latency tree. Spans are in the same\ntrace when they share the same trace ID. The parent_id field establishes the\nposition of one span in the tree.\n\nThe root span is where parent_id is Absent and usually has the longest\nduration in the trace. However, nested asynchronous work can materialize as\nchild spans whose duration exceed the root span.\n\nSpans usually represent remote activity such as RPC calls, or messaging\nproducers and consumers. However, they can also represent in-process\nactivity in any position of the trace. For example, a root span could\nrepresent a server receiving an initial client request. A root span could\nalso represent a scheduled job that has no remote context.\n\nEncoding notes:\n\nEpoch timestamp are encoded fixed64 as varint would also be 8 bytes, and more\nexpensive to encode and size. Duration is stored uint64, as often the numbers\nare quite small.\n\nDefault values are ok, as only natural numbers are used. For example, zero is\nan invalid timestamp and an invalid duration, false values for debug or shared\nare ignorable, and zero-length strings also coerce to null.\n\nThe next id is 14.\n\nNote fields up to 15 take 1 byte to encode. Take care when adding new fields\nhttps://developers.google.com/protocol-buffers/docs/proto3#assigning-tags"
+    }
+  }
+}

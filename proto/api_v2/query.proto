@@ -17,7 +17,7 @@ syntax="proto3";
 
 package jaeger.api_v2;
 
-import "model.proto";
+import "api_v2/model.proto";
 import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "google/protobuf/timestamp.proto";

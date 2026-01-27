@@ -1,0 +1,184 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "api_v2/sampling.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "SamplingManager"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/v2/samplingStrategy": {
+      "post": {
+        "operationId": "SamplingManager_GetSamplingStrategy",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/api_v2SamplingStrategyResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/googlerpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "SamplingStrategyParameters defines request parameters for remote sampler.",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/api_v2SamplingStrategyParameters"
+            }
+          }
+        ],
+        "tags": [
+          "SamplingManager"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "api_v2OperationSamplingStrategy": {
+      "type": "object",
+      "properties": {
+        "operation": {
+          "type": "string"
+        },
+        "probabilisticSampling": {
+          "$ref": "#/definitions/api_v2ProbabilisticSamplingStrategy"
+        }
+      },
+      "description": "OperationSamplingStrategy is a sampling strategy for a given operation\n(aka endpoint, span name). Only probabilistic sampling is currently supported."
+    },
+    "api_v2PerOperationSamplingStrategies": {
+      "type": "object",
+      "properties": {
+        "defaultSamplingProbability": {
+          "type": "number",
+          "format": "double",
+          "description": "defaultSamplingProbability is the sampling probability for spans that do not match\nany of the perOperationStrategies."
+        },
+        "defaultLowerBoundTracesPerSecond": {
+          "type": "number",
+          "format": "double",
+          "description": "defaultLowerBoundTracesPerSecond defines a lower-bound rate limit used to ensure that\nthere is some minimal amount of traces sampled for an endpoint that might otherwise\nbe never sampled via probabilistic strategies. The limit is local to a service instance,\nso if a service is deployed with many (N) instances, the effective minimum rate of sampling\nwill be N times higher. This setting applies to ALL operations, whether or not they match\none of the perOperationStrategies."
+        },
+        "perOperationStrategies": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/api_v2OperationSamplingStrategy"
+          },
+          "description": "perOperationStrategies describes sampling strategiesf for individual operations within\na given service."
+        },
+        "defaultUpperBoundTracesPerSecond": {
+          "type": "number",
+          "format": "double",
+          "description": "defaultUpperBoundTracesPerSecond defines an upper bound rate limit.\nHowever, almost no Jaeger SDKs support this parameter."
+        }
+      },
+      "description": "PerOperationSamplingStrategies is a combination of strategies for different endpoints\nas well as some service-wide defaults. It is particularly useful for services whose\nendpoints receive vastly different traffic, so that any single rate of sampling would\nresult in either too much data for some endpoints or almost no data for other endpoints."
+    },
+    "api_v2ProbabilisticSamplingStrategy": {
+      "type": "object",
+      "properties": {
+        "samplingRate": {
+          "type": "number",
+          "format": "double",
+          "description": "samplingRate is the sampling probability in the range [0.0, 1.0]."
+        }
+      },
+      "description": "ProbabilisticSamplingStrategy samples traces with a fixed probability."
+    },
+    "api_v2RateLimitingSamplingStrategy": {
+      "type": "object",
+      "properties": {
+        "maxTracesPerSecond": {
+          "type": "integer",
+          "format": "int32",
+          "description": "TODO this field type should be changed to double, to support rates like 1 per minute."
+        }
+      },
+      "description": "RateLimitingSamplingStrategy samples a fixed number of traces per time interval.\nThe typical implementations use the leaky bucket algorithm."
+    },
+    "api_v2SamplingStrategyParameters": {
+      "type": "object",
+      "properties": {
+        "serviceName": {
+          "type": "string",
+          "description": "serviceName is a required argument."
+        }
+      },
+      "description": "SamplingStrategyParameters defines request parameters for remote sampler."
+    },
+    "api_v2SamplingStrategyResponse": {
+      "type": "object",
+      "properties": {
+        "strategyType": {
+          "$ref": "#/definitions/api_v2SamplingStrategyType",
+          "description": "Legacy field that was meant to indicate which one of the strategy fields\nbelow is present. This enum was not extended when per-operation strategy\nwas introduced, because extending enum has backwards compatiblity issues.\nThe recommended approach for consumers is to ignore this field and instead\nchecks the other fields being not null (starting with operationSampling).\nFor producers, it is recommended to set this field correctly for probabilistic\nand rate-limiting strategies, but if per-operation strategy is returned,\nthe enum can be set to 0 (probabilistic)."
+        },
+        "probabilisticSampling": {
+          "$ref": "#/definitions/api_v2ProbabilisticSamplingStrategy"
+        },
+        "rateLimitingSampling": {
+          "$ref": "#/definitions/api_v2RateLimitingSamplingStrategy"
+        },
+        "operationSampling": {
+          "$ref": "#/definitions/api_v2PerOperationSamplingStrategies"
+        }
+      },
+      "description": "SamplingStrategyResponse contains an overall sampling strategy for a given service.\nThis type should be treated as a union where only one of the strategy field is present."
+    },
+    "api_v2SamplingStrategyType": {
+      "type": "string",
+      "enum": [
+        "PROBABILISTIC",
+        "RATE_LIMITING"
+      ],
+      "default": "PROBABILISTIC",
+      "description": "See description of the SamplingStrategyResponse.strategyType field."
+    },
+    "googlerpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    }
+  }
+}

@@ -1,0 +1,38 @@
+version: v1
+managed:
+  enabled: true
+  go_package_prefix:
+    # <module_name>   : name in go.mod
+    # <relative_path> : where generated code should be output
+    # default: # <module_name>/<relative_path>
+
+    default: github.com/jaegertracing/jaeger-idl/gen
+    except:
+      - buf.build/gogo/protobuf
+      - buf.build/googleapis/googleapis
+      - buf.build/grpc-ecosystem/grpc-gateway
+      - buf.build/opentelemetry/opentelemetry
+
+plugins:
+  - plugin: buf.build/grpc/go:v1.5.1
+    out: gen
+    opt:
+      - paths=source_relative
+      - require_unimplemented_servers=false
+
+  # dependencies
+  - plugin: buf.build/protocolbuffers/go:v1.36.10
+    out: gen
+    opt:
+      - paths=source_relative
+
+  - plugin: buf.build/grpc-ecosystem/gateway:v2.27.3
+    out: gen/gw
+    opt:
+      - paths=source_relative
+      - generate_unbound_methods=true
+      - standalone=true
+      # - grpc_api_configuration=path/to/config.yaml
+
+  - plugin: buf.build/grpc-ecosystem/openapiv2:v2.27.3
+    out: third_party/OpenAPI
