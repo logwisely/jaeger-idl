@@ -34,10 +34,13 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	QueryService_GetTrace_FullMethodName      = "/jaeger.api_v3.QueryService/GetTrace"
-	QueryService_FindTraces_FullMethodName    = "/jaeger.api_v3.QueryService/FindTraces"
-	QueryService_GetServices_FullMethodName   = "/jaeger.api_v3.QueryService/GetServices"
-	QueryService_GetOperations_FullMethodName = "/jaeger.api_v3.QueryService/GetOperations"
+	QueryService_GetTrace_FullMethodName                  = "/jaeger.api_v3.QueryService/GetTrace"
+	QueryService_FindTraces_FullMethodName                = "/jaeger.api_v3.QueryService/FindTraces"
+	QueryService_GetServices_FullMethodName               = "/jaeger.api_v3.QueryService/GetServices"
+	QueryService_GetOperations_FullMethodName             = "/jaeger.api_v3.QueryService/GetOperations"
+	QueryService_GetAttributeNames_FullMethodName         = "/jaeger.api_v3.QueryService/GetAttributeNames"
+	QueryService_GetTopKAttributeValues_FullMethodName    = "/jaeger.api_v3.QueryService/GetTopKAttributeValues"
+	QueryService_GetBottomKAttributeValues_FullMethodName = "/jaeger.api_v3.QueryService/GetBottomKAttributeValues"
 )
 
 // QueryServiceClient is the client API for QueryService service.
@@ -57,6 +60,12 @@ type QueryServiceClient interface {
 	GetServices(ctx context.Context, in *GetServicesRequest, opts ...grpc.CallOption) (*GetServicesResponse, error)
 	// GetOperations returns operation names.
 	GetOperations(ctx context.Context, in *GetOperationsRequest, opts ...grpc.CallOption) (*GetOperationsResponse, error)
+	// GetAttributeNames returns attribute names.
+	GetAttributeNames(ctx context.Context, in *GetAttributeNamesRequest, opts ...grpc.CallOption) (*GetAttributeNamesResponse, error)
+	// GetTopKAttributeValues returns top-k attribute values.
+	GetTopKAttributeValues(ctx context.Context, in *GetTopKAttributeValuesRequest, opts ...grpc.CallOption) (*GetTopKAttributeValuesResponse, error)
+	// GetBottomKAttributeValues returns bottom-k attribute values.
+	GetBottomKAttributeValues(ctx context.Context, in *GetBottomKAttributeValuesRequest, opts ...grpc.CallOption) (*GetBottomKAttributeValuesResponse, error)
 }
 
 type queryServiceClient struct {
@@ -125,6 +134,36 @@ func (c *queryServiceClient) GetOperations(ctx context.Context, in *GetOperation
 	return out, nil
 }
 
+func (c *queryServiceClient) GetAttributeNames(ctx context.Context, in *GetAttributeNamesRequest, opts ...grpc.CallOption) (*GetAttributeNamesResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAttributeNamesResponse)
+	err := c.cc.Invoke(ctx, QueryService_GetAttributeNames_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryServiceClient) GetTopKAttributeValues(ctx context.Context, in *GetTopKAttributeValuesRequest, opts ...grpc.CallOption) (*GetTopKAttributeValuesResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetTopKAttributeValuesResponse)
+	err := c.cc.Invoke(ctx, QueryService_GetTopKAttributeValues_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryServiceClient) GetBottomKAttributeValues(ctx context.Context, in *GetBottomKAttributeValuesRequest, opts ...grpc.CallOption) (*GetBottomKAttributeValuesResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetBottomKAttributeValuesResponse)
+	err := c.cc.Invoke(ctx, QueryService_GetBottomKAttributeValues_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // QueryServiceServer is the server API for QueryService service.
 // All implementations should embed UnimplementedQueryServiceServer
 // for forward compatibility.
@@ -142,6 +181,12 @@ type QueryServiceServer interface {
 	GetServices(context.Context, *GetServicesRequest) (*GetServicesResponse, error)
 	// GetOperations returns operation names.
 	GetOperations(context.Context, *GetOperationsRequest) (*GetOperationsResponse, error)
+	// GetAttributeNames returns attribute names.
+	GetAttributeNames(context.Context, *GetAttributeNamesRequest) (*GetAttributeNamesResponse, error)
+	// GetTopKAttributeValues returns top-k attribute values.
+	GetTopKAttributeValues(context.Context, *GetTopKAttributeValuesRequest) (*GetTopKAttributeValuesResponse, error)
+	// GetBottomKAttributeValues returns bottom-k attribute values.
+	GetBottomKAttributeValues(context.Context, *GetBottomKAttributeValuesRequest) (*GetBottomKAttributeValuesResponse, error)
 }
 
 // UnimplementedQueryServiceServer should be embedded to have
@@ -162,6 +207,15 @@ func (UnimplementedQueryServiceServer) GetServices(context.Context, *GetServices
 }
 func (UnimplementedQueryServiceServer) GetOperations(context.Context, *GetOperationsRequest) (*GetOperationsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetOperations not implemented")
+}
+func (UnimplementedQueryServiceServer) GetAttributeNames(context.Context, *GetAttributeNamesRequest) (*GetAttributeNamesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAttributeNames not implemented")
+}
+func (UnimplementedQueryServiceServer) GetTopKAttributeValues(context.Context, *GetTopKAttributeValuesRequest) (*GetTopKAttributeValuesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTopKAttributeValues not implemented")
+}
+func (UnimplementedQueryServiceServer) GetBottomKAttributeValues(context.Context, *GetBottomKAttributeValuesRequest) (*GetBottomKAttributeValuesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetBottomKAttributeValues not implemented")
 }
 func (UnimplementedQueryServiceServer) testEmbeddedByValue() {}
 
@@ -241,6 +295,60 @@ func _QueryService_GetOperations_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
+func _QueryService_GetAttributeNames_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAttributeNamesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServiceServer).GetAttributeNames(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: QueryService_GetAttributeNames_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServiceServer).GetAttributeNames(ctx, req.(*GetAttributeNamesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _QueryService_GetTopKAttributeValues_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetTopKAttributeValuesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServiceServer).GetTopKAttributeValues(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: QueryService_GetTopKAttributeValues_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServiceServer).GetTopKAttributeValues(ctx, req.(*GetTopKAttributeValuesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _QueryService_GetBottomKAttributeValues_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetBottomKAttributeValuesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServiceServer).GetBottomKAttributeValues(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: QueryService_GetBottomKAttributeValues_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServiceServer).GetBottomKAttributeValues(ctx, req.(*GetBottomKAttributeValuesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // QueryService_ServiceDesc is the grpc.ServiceDesc for QueryService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -255,6 +363,18 @@ var QueryService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetOperations",
 			Handler:    _QueryService_GetOperations_Handler,
+		},
+		{
+			MethodName: "GetAttributeNames",
+			Handler:    _QueryService_GetAttributeNames_Handler,
+		},
+		{
+			MethodName: "GetTopKAttributeValues",
+			Handler:    _QueryService_GetTopKAttributeValues_Handler,
+		},
+		{
+			MethodName: "GetBottomKAttributeValues",
+			Handler:    _QueryService_GetBottomKAttributeValues_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{
