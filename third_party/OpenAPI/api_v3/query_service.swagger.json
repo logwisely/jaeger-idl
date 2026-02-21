@@ -102,6 +102,54 @@
       "description": "- STATUS_CODE_UNSET: The default status.\n - STATUS_CODE_OK: The Span has been validated by an Application developer or Operator to \nhave completed successfully.\n - STATUS_CODE_ERROR: The Span contains an error.",
       "title": "For the semantics of status codes see\nhttps://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/trace/api.md#set-status"
     },
+    "api_v3AttributeValueCount": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string"
+        },
+        "count": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "api_v3GetAttributeNamesResponse": {
+      "type": "object",
+      "properties": {
+        "attributeNames": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "Response object to get attribute names."
+    },
+    "api_v3GetBottomKAttributeValuesResponse": {
+      "type": "object",
+      "properties": {
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/api_v3AttributeValueCount"
+          }
+        }
+      }
+    },
+    "api_v3GetTopKAttributeValuesResponse": {
+      "type": "object",
+      "properties": {
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/api_v3AttributeValueCount"
+          }
+        }
+      }
+    },
     "commonv1AnyValue": {
       "type": "object",
       "properties": {
@@ -272,6 +320,10 @@
         "rawTraces": {
           "type": "boolean",
           "description": "If set to true, the response will exclude any enrichments to the trace, such as clock skew adjustments.\nThe trace will be returned exactly as stored.\n\nThis field is optional."
+        },
+        "workspaceId": {
+          "type": "string",
+          "description": "Optional. The workspace ID to filter traces."
         }
       },
       "description": "Query parameters to find traces.\n\nAll fields form a conjunction (e.g., \"service_name='X' AND operation_name='Y' AND ...\"),\nexcept for `search_depth` and `raw_traces`.\n\nFields are matched against individual spans, not the trace level. The results include\ntraces with at least one matching span.\n\nThe results have no guaranteed ordering."

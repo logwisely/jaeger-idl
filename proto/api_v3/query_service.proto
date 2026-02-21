@@ -38,6 +38,8 @@ message GetTraceRequest {
   // enrichments to the trace, such as clock skew adjustment.
   // Instead, the trace will be returned exactly as stored.
   bool raw_traces = 4;
+  // Optional. The workspace ID to filter traces.
+  string workspace_id = 5;
 }
 
 // Query parameters to find traces.
@@ -102,6 +104,8 @@ message TraceQueryParameters {
   //
   // This field is optional.
   bool raw_traces = 9;
+  // Optional. The workspace ID to filter traces.
+  string workspace_id = 10;
 }
 
 // Request object to search traces.
@@ -110,7 +114,10 @@ message FindTracesRequest {
 }
 
 // Request object to get service names.
-message GetServicesRequest {}
+message GetServicesRequest {
+  // Optional. The workspace ID to filter Services.
+  string workspace_id = 1;
+}
 
 // Response object to get service names.
 message GetServicesResponse {
@@ -123,6 +130,64 @@ message GetOperationsRequest {
   string service = 1;
   // Optional span kind.
   string span_kind = 2;
+  // Optional. The workspace ID to filter Services.
+  string workspace_id = 3;
+}
+
+// Request object to get attribute names.
+message GetAttributeNamesRequest {
+  // Optional. The workspace ID to filter Services.
+  string workspace_id = 1;
+  // Required service name.
+  string service = 2;
+  // Optional. operation_name filters by a specific operation name.
+  string operation_name = 3;
+}
+
+// Response object to get attribute names.
+message GetAttributeNamesResponse {
+  repeated string attribute_names = 1;
+}
+
+// Request object to get top-k attribute values.
+message GetTopKAttributeValuesRequest {
+  // Optional. The workspace ID to filter Services.
+  string workspace_id = 1;
+  // Required service name.
+  string service = 2;
+  // Optional. operation_name filters by a specific operation name.
+  string operation_name = 3;
+  // Required attribute name.
+  string attribute_name = 4;
+  // Required k. The number of top values to return. default is 10.
+  int32 k = 5;
+}
+
+message AttributeValueCount {
+    string value = 1;
+    int64 count = 2;
+}
+
+message GetTopKAttributeValuesResponse {
+  repeated AttributeValueCount values = 1;
+}
+
+message GetBottomKAttributeValuesResponse {
+  repeated AttributeValueCount values = 1;
+}
+
+// Request object to get bottom-k attribute values.
+message GetBottomKAttributeValuesRequest {
+  // Optional. The workspace ID to filter Services.
+  string workspace_id = 1;
+  // Required service name.
+  string service = 2;
+  // Optional. operation_name filters by a specific operation name.
+  string operation_name = 3;
+  // Required attribute name.
+  string attribute_name = 4;
+  // Required k. The number of bottom values to return. default is 10.
+  int32 k = 5;
 }
 
 // Operation encapsulates information about operation.
@@ -153,6 +218,15 @@ service QueryService {
 
   // GetOperations returns operation names.
   rpc GetOperations(GetOperationsRequest) returns (GetOperationsResponse) {}
+
+  // GetAttributeNames returns attribute names.
+  rpc GetAttributeNames(GetAttributeNamesRequest) returns (GetAttributeNamesResponse) {}
+
+  // GetTopKAttributeValues returns top-k attribute values.
+  rpc GetTopKAttributeValues(GetTopKAttributeValuesRequest) returns (GetTopKAttributeValuesResponse) {}
+
+  // GetBottomKAttributeValues returns bottom-k attribute values.
+  rpc GetBottomKAttributeValues(GetBottomKAttributeValuesRequest) returns (GetBottomKAttributeValuesResponse) {}
 }
 
 // Below are some helper types when using APIv3 via HTTP endpoints.
