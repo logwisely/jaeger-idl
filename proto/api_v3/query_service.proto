@@ -146,7 +146,7 @@ message GetHotAttributeNamesRequest {
 
 // Response object to get attribute names.
 message GetAttributeNamesResponse {
-  repeated string attribute_names = 1;
+  repeated string names = 1;
 }
 
 // Request object to get top-k attribute values.

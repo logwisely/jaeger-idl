@@ -117,7 +117,7 @@
     "api_v3GetAttributeNamesResponse": {
       "type": "object",
       "properties": {
-        "attributeNames": {
+        "names": {
           "type": "array",
           "items": {
             "type": "string"

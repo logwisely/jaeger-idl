@@ -549,10 +549,10 @@ func (x *GetHotAttributeNamesRequest) GetOperationName() string {
 
 // Response object to get attribute names.
 type GetAttributeNamesResponse struct {
-	state          protoimpl.MessageState `protogen:"open.v1"`
-	AttributeNames []string               `protobuf:"bytes,1,rep,name=attribute_names,json=attributeNames,proto3" json:"attribute_names,omitempty"`
-	unknownFields  protoimpl.UnknownFields
-	sizeCache      protoimpl.SizeCache
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Names         []string               `protobuf:"bytes,1,rep,name=names,proto3" json:"names,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *GetAttributeNamesResponse) Reset() {
@@ -585,9 +585,9 @@ func (*GetAttributeNamesResponse) Descriptor() ([]byte, []int) {
 	return file_api_v3_query_service_proto_rawDescGZIP(), []int{7}
 }
 
-func (x *GetAttributeNamesResponse) GetAttributeNames() []string {
+func (x *GetAttributeNamesResponse) GetNames() []string {
 	if x != nil {
-		return x.AttributeNames
+		return x.Names
 	}
 	return nil
 }
@@ -1207,9 +1207,9 @@ const file_api_v3_query_service_proto_rawDesc = "" +
 	"\x1bGetHotAttributeNamesRequest\x12!\n" +
 	"\fworkspace_id\x18\x01 \x01(\tR\vworkspaceId\x12\x18\n" +
 	"\aservice\x18\x02 \x01(\tR\aservice\x12%\n" +
-	"\x0eoperation_name\x18\x03 \x01(\tR\roperationName\"D\n" +
-	"\x19GetAttributeNamesResponse\x12'\n" +
-	"\x0fattribute_names\x18\x01 \x03(\tR\x0eattributeNames\"\xb8\x01\n" +
+	"\x0eoperation_name\x18\x03 \x01(\tR\roperationName\"1\n" +
+	"\x19GetAttributeNamesResponse\x12\x14\n" +
+	"\x05names\x18\x01 \x03(\tR\x05names\"\xb8\x01\n" +
 	"\x1dGetTopKAttributeValuesRequest\x12!\n" +
 	"\fworkspace_id\x18\x01 \x01(\tR\vworkspaceId\x12\x18\n" +
 	"\aservice\x18\x02 \x01(\tR\aservice\x12%\n" +

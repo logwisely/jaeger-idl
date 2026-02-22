@@ -13,8 +13,8 @@ http:
     - selector: jaeger.api_v3.QueryService.GetOperations
       get: /api/v3/operations
     - selector: jaeger.api_v3.QueryService.GetAttributeNames
-      get: /api/v3/attributes/{service_name}/names
+      get: /api/v3/attributes/names
     - selector: jaeger.api_v3.QueryService.GetTopKAttributeValues
-      get: /api/v3/attributes/values/top-k/{service_name}/{attribute_name}
+      get: /api/v3/attributes/values/topk
     - selector: jaeger.api_v3.QueryService.GetBottomKAttributeValues
-      get: /api/v3/attributes/values/bottom-k/{service_name}/{attribute_name}
+      get: /api/v3/attributes/values/bottomk
