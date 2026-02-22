@@ -138,7 +138,7 @@ func local_request_QueryService_GetOperations_0(ctx context.Context, marshaler r
 
 func request_QueryService_GetAttributeNames_0(ctx context.Context, marshaler runtime.Marshaler, client extApi_v3.QueryServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var (
-		protoReq extApi_v3.GetAttributeNamesRequest
+		protoReq extApi_v3.GetHotAttributeNamesRequest
 		metadata runtime.ServerMetadata
 	)
 	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
@@ -153,7 +153,7 @@ func request_QueryService_GetAttributeNames_0(ctx context.Context, marshaler run
 
 func local_request_QueryService_GetAttributeNames_0(ctx context.Context, marshaler runtime.Marshaler, server extApi_v3.QueryServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var (
-		protoReq extApi_v3.GetAttributeNamesRequest
+		protoReq extApi_v3.GetHotAttributeNamesRequest
 		metadata runtime.ServerMetadata
 	)
 	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {

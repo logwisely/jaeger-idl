@@ -483,8 +483,8 @@ func (x *GetOperationsRequest) GetWorkspaceId() string {
 	return ""
 }
 
-// Request object to get attribute names.
-type GetAttributeNamesRequest struct {
+// Request object to get list of hot attribute names.
+type GetHotAttributeNamesRequest struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// Optional. The workspace ID to filter Services.
 	WorkspaceId string `protobuf:"bytes,1,opt,name=workspace_id,json=workspaceId,proto3" json:"workspace_id,omitempty"`
@@ -496,20 +496,20 @@ type GetAttributeNamesRequest struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *GetAttributeNamesRequest) Reset() {
-	*x = GetAttributeNamesRequest{}
+func (x *GetHotAttributeNamesRequest) Reset() {
+	*x = GetHotAttributeNamesRequest{}
 	mi := &file_api_v3_query_service_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *GetAttributeNamesRequest) String() string {
+func (x *GetHotAttributeNamesRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GetAttributeNamesRequest) ProtoMessage() {}
+func (*GetHotAttributeNamesRequest) ProtoMessage() {}
 
-func (x *GetAttributeNamesRequest) ProtoReflect() protoreflect.Message {
+func (x *GetHotAttributeNamesRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_api_v3_query_service_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -521,26 +521,26 @@ func (x *GetAttributeNamesRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use GetAttributeNamesRequest.ProtoReflect.Descriptor instead.
-func (*GetAttributeNamesRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use GetHotAttributeNamesRequest.ProtoReflect.Descriptor instead.
+func (*GetHotAttributeNamesRequest) Descriptor() ([]byte, []int) {
 	return file_api_v3_query_service_proto_rawDescGZIP(), []int{6}
 }
 
-func (x *GetAttributeNamesRequest) GetWorkspaceId() string {
+func (x *GetHotAttributeNamesRequest) GetWorkspaceId() string {
 	if x != nil {
 		return x.WorkspaceId
 	}
 	return ""
 }
 
-func (x *GetAttributeNamesRequest) GetService() string {
+func (x *GetHotAttributeNamesRequest) GetService() string {
 	if x != nil {
 		return x.Service
 	}
 	return ""
 }
 
-func (x *GetAttributeNamesRequest) GetOperationName() string {
+func (x *GetHotAttributeNamesRequest) GetOperationName() string {
 	if x != nil {
 		return x.OperationName
 	}
@@ -1203,8 +1203,8 @@ const file_api_v3_query_service_proto_rawDesc = "" +
 	"\x14GetOperationsRequest\x12\x18\n" +
 	"\aservice\x18\x01 \x01(\tR\aservice\x12\x1b\n" +
 	"\tspan_kind\x18\x02 \x01(\tR\bspanKind\x12!\n" +
-	"\fworkspace_id\x18\x03 \x01(\tR\vworkspaceId\"~\n" +
-	"\x18GetAttributeNamesRequest\x12!\n" +
+	"\fworkspace_id\x18\x03 \x01(\tR\vworkspaceId\"\x81\x01\n" +
+	"\x1bGetHotAttributeNamesRequest\x12!\n" +
 	"\fworkspace_id\x18\x01 \x01(\tR\vworkspaceId\x12\x18\n" +
 	"\aservice\x18\x02 \x01(\tR\aservice\x12%\n" +
 	"\x0eoperation_name\x18\x03 \x01(\tR\roperationName\"D\n" +
@@ -1246,14 +1246,14 @@ const file_api_v3_query_service_proto_rawDesc = "" +
 	"httpStatus\x18\x04 \x01(\tR\n" +
 	"httpStatus\"V\n" +
 	"\x12GRPCGatewayWrapper\x12@\n" +
-	"\x06result\x18\x01 \x01(\v2(.opentelemetry.proto.trace.v1.TracesDataR\x06result2\xe2\x05\n" +
+	"\x06result\x18\x01 \x01(\v2(.opentelemetry.proto.trace.v1.TracesDataR\x06result2\xe5\x05\n" +
 	"\fQueryService\x12X\n" +
 	"\bGetTrace\x12\x1e.jaeger.api_v3.GetTraceRequest\x1a(.opentelemetry.proto.trace.v1.TracesData\"\x000\x01\x12\\\n" +
 	"\n" +
 	"FindTraces\x12 .jaeger.api_v3.FindTracesRequest\x1a(.opentelemetry.proto.trace.v1.TracesData\"\x000\x01\x12V\n" +
 	"\vGetServices\x12!.jaeger.api_v3.GetServicesRequest\x1a\".jaeger.api_v3.GetServicesResponse\"\x00\x12\\\n" +
-	"\rGetOperations\x12#.jaeger.api_v3.GetOperationsRequest\x1a$.jaeger.api_v3.GetOperationsResponse\"\x00\x12h\n" +
-	"\x11GetAttributeNames\x12'.jaeger.api_v3.GetAttributeNamesRequest\x1a(.jaeger.api_v3.GetAttributeNamesResponse\"\x00\x12w\n" +
+	"\rGetOperations\x12#.jaeger.api_v3.GetOperationsRequest\x1a$.jaeger.api_v3.GetOperationsResponse\"\x00\x12k\n" +
+	"\x11GetAttributeNames\x12*.jaeger.api_v3.GetHotAttributeNamesRequest\x1a(.jaeger.api_v3.GetAttributeNamesResponse\"\x00\x12w\n" +
 	"\x16GetTopKAttributeValues\x12,.jaeger.api_v3.GetTopKAttributeValuesRequest\x1a-.jaeger.api_v3.GetTopKAttributeValuesResponse\"\x00\x12\x80\x01\n" +
 	"\x19GetBottomKAttributeValues\x12/.jaeger.api_v3.GetBottomKAttributeValuesRequest\x1a0.jaeger.api_v3.GetBottomKAttributeValuesResponse\"\x00B\xa7\x01\n" +
 	"\x11com.jaeger.api_v3B\x11QueryServiceProtoP\x01Z.github.com/jaegertracing/jaeger-idl/gen/api_v3\xa2\x02\x03JAX\xaa\x02\fJaeger.ApiV3\xca\x02\fJaeger\\ApiV3\xe2\x02\x18Jaeger\\ApiV3\\GPBMetadata\xea\x02\rJaeger::ApiV3b\x06proto3"
@@ -1278,7 +1278,7 @@ var file_api_v3_query_service_proto_goTypes = []any{
 	(*GetServicesRequest)(nil),                       // 3: jaeger.api_v3.GetServicesRequest
 	(*GetServicesResponse)(nil),                      // 4: jaeger.api_v3.GetServicesResponse
 	(*GetOperationsRequest)(nil),                     // 5: jaeger.api_v3.GetOperationsRequest
-	(*GetAttributeNamesRequest)(nil),                 // 6: jaeger.api_v3.GetAttributeNamesRequest
+	(*GetHotAttributeNamesRequest)(nil),              // 6: jaeger.api_v3.GetHotAttributeNamesRequest
 	(*GetAttributeNamesResponse)(nil),                // 7: jaeger.api_v3.GetAttributeNamesResponse
 	(*GetTopKAttributeValuesRequest)(nil),            // 8: jaeger.api_v3.GetTopKAttributeValuesRequest
 	(*AttributeValueCount)(nil),                      // 9: jaeger.api_v3.AttributeValueCount
@@ -1313,7 +1313,7 @@ var file_api_v3_query_service_proto_depIdxs = []int32{
 	2,  // 14: jaeger.api_v3.QueryService.FindTraces:input_type -> jaeger.api_v3.FindTracesRequest
 	3,  // 15: jaeger.api_v3.QueryService.GetServices:input_type -> jaeger.api_v3.GetServicesRequest
 	5,  // 16: jaeger.api_v3.QueryService.GetOperations:input_type -> jaeger.api_v3.GetOperationsRequest
-	6,  // 17: jaeger.api_v3.QueryService.GetAttributeNames:input_type -> jaeger.api_v3.GetAttributeNamesRequest
+	6,  // 17: jaeger.api_v3.QueryService.GetAttributeNames:input_type -> jaeger.api_v3.GetHotAttributeNamesRequest
 	8,  // 18: jaeger.api_v3.QueryService.GetTopKAttributeValues:input_type -> jaeger.api_v3.GetTopKAttributeValuesRequest
 	12, // 19: jaeger.api_v3.QueryService.GetBottomKAttributeValues:input_type -> jaeger.api_v3.GetBottomKAttributeValuesRequest
 	21, // 20: jaeger.api_v3.QueryService.GetTrace:output_type -> opentelemetry.proto.trace.v1.TracesData

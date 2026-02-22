@@ -134,8 +134,8 @@ message GetOperationsRequest {
   string workspace_id = 3;
 }
 
-// Request object to get attribute names.
-message GetAttributeNamesRequest {
+// Request object to get list of hot attribute names.
+message GetHotAttributeNamesRequest {
   // Optional. The workspace ID to filter Services.
   string workspace_id = 1;
   // Required service name.
@@ -220,7 +220,7 @@ service QueryService {
   rpc GetOperations(GetOperationsRequest) returns (GetOperationsResponse) {}
 
   // GetAttributeNames returns attribute names.
-  rpc GetAttributeNames(GetAttributeNamesRequest) returns (GetAttributeNamesResponse) {}
+  rpc GetAttributeNames(GetHotAttributeNamesRequest) returns (GetAttributeNamesResponse) {}
 
   // GetTopKAttributeValues returns top-k attribute values.
   rpc GetTopKAttributeValues(GetTopKAttributeValuesRequest) returns (GetTopKAttributeValuesResponse) {}
