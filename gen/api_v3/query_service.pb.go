@@ -1287,7 +1287,7 @@ var File_api_v3_query_service_proto protoreflect.FileDescriptor
 
 const file_api_v3_query_service_proto_rawDesc = "" +
 	"\n" +
-	"\x1aapi_v3/query_service.proto\x12\rjaeger.api_v3\x1a\x1cgoogle/api/annotations.proto\x1a\x1fgoogle/api/field_behavior.proto\x1a\x1egoogle/protobuf/duration.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a(opentelemetry/proto/trace/v1/trace.proto\"\xe0\x01\n" +
+	"\x1aapi_v3/query_service.proto\x12\rjaeger.api_v3\x1a\x1cgoogle/api/annotations.proto\x1a\x1egoogle/protobuf/duration.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a(opentelemetry/proto/trace/v1/trace.proto\"\xe0\x01\n" +
 	"\x0fGetTraceRequest\x12\x19\n" +
 	"\btrace_id\x18\x01 \x01(\tR\atraceId\x129\n" +
 	"\n" +
@@ -1317,55 +1317,55 @@ const file_api_v3_query_service_proto_rawDesc = "" +
 	"\x11FindTracesRequest\x129\n" +
 	"\x05query\x18\x01 \x01(\v2#.jaeger.api_v3.TraceQueryParametersR\x05query\"7\n" +
 	"\x12GetServicesRequest\x12!\n" +
-	"\fworkspace_id\x18\x01 \x01(\tR\vworkspaceId\"6\n" +
-	"\x13GetServicesResponse\x12\x1f\n" +
-	"\bservices\x18\x01 \x03(\tB\x03\xe0A\x02R\bservices\"\x7f\n" +
-	"\x14GetOperationsRequest\x12\x1d\n" +
-	"\aservice\x18\x01 \x01(\tB\x03\xe0A\x02R\aservice\x12 \n" +
-	"\tspan_kind\x18\x02 \x01(\tB\x03\xe0A\x01R\bspanKind\x12&\n" +
-	"\fworkspace_id\x18\x03 \x01(\tB\x03\xe0A\x01R\vworkspaceId\"F\n" +
-	"\tOperation\x12\x17\n" +
-	"\x04name\x18\x01 \x01(\tB\x03\xe0A\x02R\x04name\x12 \n" +
-	"\tspan_kind\x18\x02 \x01(\tB\x03\xe0A\x01R\bspanKind\"V\n" +
-	"\x15GetOperationsResponse\x12=\n" +
+	"\fworkspace_id\x18\x01 \x01(\tR\vworkspaceId\"1\n" +
+	"\x13GetServicesResponse\x12\x1a\n" +
+	"\bservices\x18\x01 \x03(\tR\bservices\"p\n" +
+	"\x14GetOperationsRequest\x12\x18\n" +
+	"\aservice\x18\x01 \x01(\tR\aservice\x12\x1b\n" +
+	"\tspan_kind\x18\x02 \x01(\tR\bspanKind\x12!\n" +
+	"\fworkspace_id\x18\x03 \x01(\tR\vworkspaceId\"<\n" +
+	"\tOperation\x12\x12\n" +
+	"\x04name\x18\x01 \x01(\tR\x04name\x12\x1b\n" +
+	"\tspan_kind\x18\x02 \x01(\tR\bspanKind\"Q\n" +
+	"\x15GetOperationsResponse\x128\n" +
 	"\n" +
-	"operations\x18\x01 \x03(\v2\x18.jaeger.api_v3.OperationB\x03\xe0A\x02R\n" +
+	"operations\x18\x01 \x03(\v2\x18.jaeger.api_v3.OperationR\n" +
 	"operations\"\x8a\x01\n" +
 	"\x16GetDependenciesRequest\x129\n" +
 	"\n" +
 	"start_time\x18\x01 \x01(\v2\x1a.google.protobuf.TimestampR\tstartTime\x125\n" +
-	"\bend_time\x18\x02 \x01(\v2\x1a.google.protobuf.TimestampR\aendTime\"Z\n" +
-	"\x14DependenciesResponse\x12B\n" +
-	"\fdependencies\x18\x01 \x03(\v2\x19.jaeger.api_v3.DependencyB\x03\xe0A\x02R\fdependencies\"h\n" +
+	"\bend_time\x18\x02 \x01(\v2\x1a.google.protobuf.TimestampR\aendTime\"U\n" +
+	"\x14DependenciesResponse\x12=\n" +
+	"\fdependencies\x18\x01 \x03(\v2\x19.jaeger.api_v3.DependencyR\fdependencies\"Y\n" +
 	"\n" +
-	"Dependency\x12\x1b\n" +
-	"\x06parent\x18\x01 \x01(\tB\x03\xe0A\x02R\x06parent\x12\x19\n" +
-	"\x05child\x18\x02 \x01(\tB\x03\xe0A\x02R\x05child\x12\"\n" +
+	"Dependency\x12\x16\n" +
+	"\x06parent\x18\x01 \x01(\tR\x06parent\x12\x14\n" +
+	"\x05child\x18\x02 \x01(\tR\x05child\x12\x1d\n" +
 	"\n" +
-	"call_count\x18\x03 \x01(\x04B\x03\xe0A\x02R\tcallCount\"\xcd\x01\n" +
-	" GetIndexedAttributesNamesRequest\x12&\n" +
-	"\fworkspace_id\x18\x01 \x01(\tB\x03\xe0A\x01R\vworkspaceId\x12&\n" +
-	"\fservice_name\x18\x02 \x01(\tB\x03\xe0A\x02R\vserviceName\x12>\n" +
-	"\x05query\x18\x03 \x01(\v2#.jaeger.api_v3.TraceQueryParametersB\x03\xe0A\x02R\x05query\x12\x19\n" +
-	"\x05limit\x18\x04 \x01(\x05B\x03\xe0A\x01R\x05limit\"7\n" +
-	"\x1aGetAttributesNamesResponse\x12\x19\n" +
-	"\x05names\x18\x01 \x03(\tB\x03\xe0A\x02R\x05names\"\xee\x01\n" +
-	"\x1dGetTopKAttributeValuesRequest\x12&\n" +
-	"\fworkspace_id\x18\x01 \x01(\tB\x03\xe0A\x01R\vworkspaceId\x12&\n" +
-	"\fservice_name\x18\x02 \x01(\tB\x03\xe0A\x02R\vserviceName\x12>\n" +
-	"\x05query\x18\x03 \x01(\v2#.jaeger.api_v3.TraceQueryParametersB\x03\xe0A\x02R\x05query\x12*\n" +
-	"\x0eattribute_name\x18\x04 \x01(\tB\x03\xe0A\x02R\rattributeName\x12\x11\n" +
-	"\x01k\x18\x05 \x01(\x05B\x03\xe0A\x01R\x01k\"=\n" +
-	"\x1eGetTopKAttributeValuesResponse\x12\x1b\n" +
-	"\x06values\x18\x01 \x03(\tB\x03\xe0A\x02R\x06values\"\xf1\x01\n" +
-	" GetBottomKAttributeValuesRequest\x12&\n" +
-	"\fworkspace_id\x18\x01 \x01(\tB\x03\xe0A\x01R\vworkspaceId\x12&\n" +
-	"\fservice_name\x18\x02 \x01(\tB\x03\xe0A\x02R\vserviceName\x12>\n" +
-	"\x05query\x18\x03 \x01(\v2#.jaeger.api_v3.TraceQueryParametersB\x03\xe0A\x02R\x05query\x12*\n" +
-	"\x0eattribute_name\x18\x04 \x01(\tB\x03\xe0A\x02R\rattributeName\x12\x11\n" +
-	"\x01k\x18\x05 \x01(\x05B\x03\xe0A\x01R\x01k\"@\n" +
-	"!GetBottomKAttributeValuesResponse\x12\x1b\n" +
-	"\x06values\x18\x01 \x03(\tB\x03\xe0A\x02R\x06values\"\xef\x01\n" +
+	"call_count\x18\x03 \x01(\x04R\tcallCount\"\xb9\x01\n" +
+	" GetIndexedAttributesNamesRequest\x12!\n" +
+	"\fworkspace_id\x18\x01 \x01(\tR\vworkspaceId\x12!\n" +
+	"\fservice_name\x18\x02 \x01(\tR\vserviceName\x129\n" +
+	"\x05query\x18\x03 \x01(\v2#.jaeger.api_v3.TraceQueryParametersR\x05query\x12\x14\n" +
+	"\x05limit\x18\x04 \x01(\x05R\x05limit\"2\n" +
+	"\x1aGetAttributesNamesResponse\x12\x14\n" +
+	"\x05names\x18\x01 \x03(\tR\x05names\"\xd5\x01\n" +
+	"\x1dGetTopKAttributeValuesRequest\x12!\n" +
+	"\fworkspace_id\x18\x01 \x01(\tR\vworkspaceId\x12!\n" +
+	"\fservice_name\x18\x02 \x01(\tR\vserviceName\x129\n" +
+	"\x05query\x18\x03 \x01(\v2#.jaeger.api_v3.TraceQueryParametersR\x05query\x12%\n" +
+	"\x0eattribute_name\x18\x04 \x01(\tR\rattributeName\x12\f\n" +
+	"\x01k\x18\x05 \x01(\x05R\x01k\"8\n" +
+	"\x1eGetTopKAttributeValuesResponse\x12\x16\n" +
+	"\x06values\x18\x01 \x03(\tR\x06values\"\xd8\x01\n" +
+	" GetBottomKAttributeValuesRequest\x12!\n" +
+	"\fworkspace_id\x18\x01 \x01(\tR\vworkspaceId\x12!\n" +
+	"\fservice_name\x18\x02 \x01(\tR\vserviceName\x129\n" +
+	"\x05query\x18\x03 \x01(\v2#.jaeger.api_v3.TraceQueryParametersR\x05query\x12%\n" +
+	"\x0eattribute_name\x18\x04 \x01(\tR\rattributeName\x12\f\n" +
+	"\x01k\x18\x05 \x01(\x05R\x01k\";\n" +
+	"!GetBottomKAttributeValuesResponse\x12\x16\n" +
+	"\x06values\x18\x01 \x03(\tR\x06values\"\xef\x01\n" +
 	"\x10GRPCGatewayError\x12M\n" +
 	"\x05error\x18\x01 \x01(\v27.jaeger.api_v3.GRPCGatewayError.GRPCGatewayErrorDetailsR\x05error\x1a\x8b\x01\n" +
 	"\x17GRPCGatewayErrorDetails\x12\x1a\n" +
@@ -1376,15 +1376,15 @@ const file_api_v3_query_service_proto_rawDesc = "" +
 	"httpStatus\x18\x04 \x01(\tR\n" +
 	"httpStatus\"V\n" +
 	"\x12GRPCGatewayWrapper\x12@\n" +
-	"\x06result\x18\x01 \x01(\v2(.opentelemetry.proto.trace.v1.TracesDataR\x06result2\xe0\b\n" +
+	"\x06result\x18\x01 \x01(\v2(.opentelemetry.proto.trace.v1.TracesDataR\x06result2\xe8\b\n" +
 	"\fQueryService\x12y\n" +
 	"\bGetTrace\x12\x1e.jaeger.api_v3.GetTraceRequest\x1a(.opentelemetry.proto.trace.v1.TracesData\"!\x82\xd3\xe4\x93\x02\x1b\x12\x19/api/v3/traces/{trace_id}0\x01\x12\x87\x01\n" +
 	"\n" +
 	"FindTraces\x12 .jaeger.api_v3.FindTracesRequest\x1a(.opentelemetry.proto.trace.v1.TracesData\"+\x82\xd3\xe4\x93\x02%Z\x13:\x01*\"\x0e/api/v3/traces\x12\x0e/api/v3/traces0\x01\x12n\n" +
 	"\vGetServices\x12!.jaeger.api_v3.GetServicesRequest\x1a\".jaeger.api_v3.GetServicesResponse\"\x18\x82\xd3\xe4\x93\x02\x12\x12\x10/api/v3/services\x12v\n" +
 	"\rGetOperations\x12#.jaeger.api_v3.GetOperationsRequest\x1a$.jaeger.api_v3.GetOperationsResponse\"\x1a\x82\xd3\xe4\x93\x02\x14\x12\x12/api/v3/operations\x12{\n" +
-	"\x0fGetDependencies\x12%.jaeger.api_v3.GetDependenciesRequest\x1a#.jaeger.api_v3.DependenciesResponse\"\x1c\x82\xd3\xe4\x93\x02\x16\x12\x14/api/v3/dependencies\x12\x99\x01\n" +
-	"\x19GetIndexedAttributesNames\x12/.jaeger.api_v3.GetIndexedAttributesNamesRequest\x1a).jaeger.api_v3.GetAttributesNamesResponse\" \x82\xd3\xe4\x93\x02\x1a\x12\x18/api/v3/attributes/names\x12\x9d\x01\n" +
+	"\x0fGetDependencies\x12%.jaeger.api_v3.GetDependenciesRequest\x1a#.jaeger.api_v3.DependenciesResponse\"\x1c\x82\xd3\xe4\x93\x02\x16\x12\x14/api/v3/dependencies\x12\xa1\x01\n" +
+	"\x19GetIndexedAttributesNames\x12/.jaeger.api_v3.GetIndexedAttributesNamesRequest\x1a).jaeger.api_v3.GetAttributesNamesResponse\"(\x82\xd3\xe4\x93\x02\"\x12 /api/v3/attributes/indexed/names\x12\x9d\x01\n" +
 	"\x16GetTopKAttributeValues\x12,.jaeger.api_v3.GetTopKAttributeValuesRequest\x1a-.jaeger.api_v3.GetTopKAttributeValuesResponse\"&\x82\xd3\xe4\x93\x02 \x12\x1e/api/v3/attributes/values/topk\x12\xa9\x01\n" +
 	"\x19GetBottomKAttributeValues\x12/.jaeger.api_v3.GetBottomKAttributeValuesRequest\x1a0.jaeger.api_v3.GetBottomKAttributeValuesResponse\")\x82\xd3\xe4\x93\x02#\x12!/api/v3/attributes/values/bottomkB\xa7\x01\n" +
 	"\x11com.jaeger.api_v3B\x11QueryServiceProtoP\x01Z.github.com/jaegertracing/jaeger-idl/gen/api_v3\xa2\x02\x03JAX\xaa\x02\fJaeger.ApiV3\xca\x02\fJaeger\\ApiV3\xe2\x02\x18Jaeger\\ApiV3\\GPBMetadata\xea\x02\rJaeger::ApiV3b\x06proto3"

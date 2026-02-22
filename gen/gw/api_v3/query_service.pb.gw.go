@@ -426,7 +426,7 @@ func RegisterQueryServiceHandlerServer(ctx context.Context, mux *runtime.ServeMu
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/jaeger.api_v3.QueryService/GetIndexedAttributesNames", runtime.WithHTTPPathPattern("/api/v3/attributes/names"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/jaeger.api_v3.QueryService/GetIndexedAttributesNames", runtime.WithHTTPPathPattern("/api/v3/attributes/indexed/names"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -626,7 +626,7 @@ func RegisterQueryServiceHandlerClient(ctx context.Context, mux *runtime.ServeMu
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/jaeger.api_v3.QueryService/GetIndexedAttributesNames", runtime.WithHTTPPathPattern("/api/v3/attributes/names"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/jaeger.api_v3.QueryService/GetIndexedAttributesNames", runtime.WithHTTPPathPattern("/api/v3/attributes/indexed/names"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -683,7 +683,7 @@ var (
 	pattern_QueryService_GetServices_0               = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v3", "services"}, ""))
 	pattern_QueryService_GetOperations_0             = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v3", "operations"}, ""))
 	pattern_QueryService_GetDependencies_0           = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "v3", "dependencies"}, ""))
-	pattern_QueryService_GetIndexedAttributesNames_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v3", "attributes", "names"}, ""))
+	pattern_QueryService_GetIndexedAttributesNames_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"api", "v3", "attributes", "indexed", "names"}, ""))
 	pattern_QueryService_GetTopKAttributeValues_0    = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"api", "v3", "attributes", "values", "topk"}, ""))
 	pattern_QueryService_GetBottomKAttributeValues_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"api", "v3", "attributes", "values", "bottomk"}, ""))
 )
