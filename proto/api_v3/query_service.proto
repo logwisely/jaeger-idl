@@ -220,7 +220,7 @@ service QueryService {
   rpc GetOperations(GetOperationsRequest) returns (GetOperationsResponse) {}
 
   // GetAttributeNames returns attribute names.
-  rpc GetAttributeNames(GetHotAttributeNamesRequest) returns (GetAttributeNamesResponse) {}
+  rpc GetHotAttributeNames(GetHotAttributeNamesRequest) returns (GetAttributeNamesResponse) {}
 
   // GetTopKAttributeValues returns top-k attribute values.
   rpc GetTopKAttributeValues(GetTopKAttributeValuesRequest) returns (GetTopKAttributeValuesResponse) {}

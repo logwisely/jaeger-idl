@@ -38,7 +38,7 @@ const (
 	QueryService_FindTraces_FullMethodName                = "/jaeger.api_v3.QueryService/FindTraces"
 	QueryService_GetServices_FullMethodName               = "/jaeger.api_v3.QueryService/GetServices"
 	QueryService_GetOperations_FullMethodName             = "/jaeger.api_v3.QueryService/GetOperations"
-	QueryService_GetAttributeNames_FullMethodName         = "/jaeger.api_v3.QueryService/GetAttributeNames"
+	QueryService_GetHotAttributeNames_FullMethodName      = "/jaeger.api_v3.QueryService/GetHotAttributeNames"
 	QueryService_GetTopKAttributeValues_FullMethodName    = "/jaeger.api_v3.QueryService/GetTopKAttributeValues"
 	QueryService_GetBottomKAttributeValues_FullMethodName = "/jaeger.api_v3.QueryService/GetBottomKAttributeValues"
 )
@@ -61,7 +61,7 @@ type QueryServiceClient interface {
 	// GetOperations returns operation names.
 	GetOperations(ctx context.Context, in *GetOperationsRequest, opts ...grpc.CallOption) (*GetOperationsResponse, error)
 	// GetAttributeNames returns attribute names.
-	GetAttributeNames(ctx context.Context, in *GetHotAttributeNamesRequest, opts ...grpc.CallOption) (*GetAttributeNamesResponse, error)
+	GetHotAttributeNames(ctx context.Context, in *GetHotAttributeNamesRequest, opts ...grpc.CallOption) (*GetAttributeNamesResponse, error)
 	// GetTopKAttributeValues returns top-k attribute values.
 	GetTopKAttributeValues(ctx context.Context, in *GetTopKAttributeValuesRequest, opts ...grpc.CallOption) (*GetTopKAttributeValuesResponse, error)
 	// GetBottomKAttributeValues returns bottom-k attribute values.
@@ -134,10 +134,10 @@ func (c *queryServiceClient) GetOperations(ctx context.Context, in *GetOperation
 	return out, nil
 }
 
-func (c *queryServiceClient) GetAttributeNames(ctx context.Context, in *GetHotAttributeNamesRequest, opts ...grpc.CallOption) (*GetAttributeNamesResponse, error) {
+func (c *queryServiceClient) GetHotAttributeNames(ctx context.Context, in *GetHotAttributeNamesRequest, opts ...grpc.CallOption) (*GetAttributeNamesResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(GetAttributeNamesResponse)
-	err := c.cc.Invoke(ctx, QueryService_GetAttributeNames_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, QueryService_GetHotAttributeNames_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -182,7 +182,7 @@ type QueryServiceServer interface {
 	// GetOperations returns operation names.
 	GetOperations(context.Context, *GetOperationsRequest) (*GetOperationsResponse, error)
 	// GetAttributeNames returns attribute names.
-	GetAttributeNames(context.Context, *GetHotAttributeNamesRequest) (*GetAttributeNamesResponse, error)
+	GetHotAttributeNames(context.Context, *GetHotAttributeNamesRequest) (*GetAttributeNamesResponse, error)
 	// GetTopKAttributeValues returns top-k attribute values.
 	GetTopKAttributeValues(context.Context, *GetTopKAttributeValuesRequest) (*GetTopKAttributeValuesResponse, error)
 	// GetBottomKAttributeValues returns bottom-k attribute values.
@@ -208,8 +208,8 @@ func (UnimplementedQueryServiceServer) GetServices(context.Context, *GetServices
 func (UnimplementedQueryServiceServer) GetOperations(context.Context, *GetOperationsRequest) (*GetOperationsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetOperations not implemented")
 }
-func (UnimplementedQueryServiceServer) GetAttributeNames(context.Context, *GetHotAttributeNamesRequest) (*GetAttributeNamesResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetAttributeNames not implemented")
+func (UnimplementedQueryServiceServer) GetHotAttributeNames(context.Context, *GetHotAttributeNamesRequest) (*GetAttributeNamesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetHotAttributeNames not implemented")
 }
 func (UnimplementedQueryServiceServer) GetTopKAttributeValues(context.Context, *GetTopKAttributeValuesRequest) (*GetTopKAttributeValuesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTopKAttributeValues not implemented")
@@ -295,20 +295,20 @@ func _QueryService_GetOperations_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
-func _QueryService_GetAttributeNames_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _QueryService_GetHotAttributeNames_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetHotAttributeNamesRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(QueryServiceServer).GetAttributeNames(ctx, in)
+		return srv.(QueryServiceServer).GetHotAttributeNames(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: QueryService_GetAttributeNames_FullMethodName,
+		FullMethod: QueryService_GetHotAttributeNames_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(QueryServiceServer).GetAttributeNames(ctx, req.(*GetHotAttributeNamesRequest))
+		return srv.(QueryServiceServer).GetHotAttributeNames(ctx, req.(*GetHotAttributeNamesRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -365,8 +365,8 @@ var QueryService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _QueryService_GetOperations_Handler,
 		},
 		{
-			MethodName: "GetAttributeNames",
-			Handler:    _QueryService_GetAttributeNames_Handler,
+			MethodName: "GetHotAttributeNames",
+			Handler:    _QueryService_GetHotAttributeNames_Handler,
 		},
 		{
 			MethodName: "GetTopKAttributeValues",

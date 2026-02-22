@@ -1246,14 +1246,14 @@ const file_api_v3_query_service_proto_rawDesc = "" +
 	"httpStatus\x18\x04 \x01(\tR\n" +
 	"httpStatus\"V\n" +
 	"\x12GRPCGatewayWrapper\x12@\n" +
-	"\x06result\x18\x01 \x01(\v2(.opentelemetry.proto.trace.v1.TracesDataR\x06result2\xe5\x05\n" +
+	"\x06result\x18\x01 \x01(\v2(.opentelemetry.proto.trace.v1.TracesDataR\x06result2\xe8\x05\n" +
 	"\fQueryService\x12X\n" +
 	"\bGetTrace\x12\x1e.jaeger.api_v3.GetTraceRequest\x1a(.opentelemetry.proto.trace.v1.TracesData\"\x000\x01\x12\\\n" +
 	"\n" +
 	"FindTraces\x12 .jaeger.api_v3.FindTracesRequest\x1a(.opentelemetry.proto.trace.v1.TracesData\"\x000\x01\x12V\n" +
 	"\vGetServices\x12!.jaeger.api_v3.GetServicesRequest\x1a\".jaeger.api_v3.GetServicesResponse\"\x00\x12\\\n" +
-	"\rGetOperations\x12#.jaeger.api_v3.GetOperationsRequest\x1a$.jaeger.api_v3.GetOperationsResponse\"\x00\x12k\n" +
-	"\x11GetAttributeNames\x12*.jaeger.api_v3.GetHotAttributeNamesRequest\x1a(.jaeger.api_v3.GetAttributeNamesResponse\"\x00\x12w\n" +
+	"\rGetOperations\x12#.jaeger.api_v3.GetOperationsRequest\x1a$.jaeger.api_v3.GetOperationsResponse\"\x00\x12n\n" +
+	"\x14GetHotAttributeNames\x12*.jaeger.api_v3.GetHotAttributeNamesRequest\x1a(.jaeger.api_v3.GetAttributeNamesResponse\"\x00\x12w\n" +
 	"\x16GetTopKAttributeValues\x12,.jaeger.api_v3.GetTopKAttributeValuesRequest\x1a-.jaeger.api_v3.GetTopKAttributeValuesResponse\"\x00\x12\x80\x01\n" +
 	"\x19GetBottomKAttributeValues\x12/.jaeger.api_v3.GetBottomKAttributeValuesRequest\x1a0.jaeger.api_v3.GetBottomKAttributeValuesResponse\"\x00B\xa7\x01\n" +
 	"\x11com.jaeger.api_v3B\x11QueryServiceProtoP\x01Z.github.com/jaegertracing/jaeger-idl/gen/api_v3\xa2\x02\x03JAX\xaa\x02\fJaeger.ApiV3\xca\x02\fJaeger\\ApiV3\xe2\x02\x18Jaeger\\ApiV3\\GPBMetadata\xea\x02\rJaeger::ApiV3b\x06proto3"
@@ -1313,14 +1313,14 @@ var file_api_v3_query_service_proto_depIdxs = []int32{
 	2,  // 14: jaeger.api_v3.QueryService.FindTraces:input_type -> jaeger.api_v3.FindTracesRequest
 	3,  // 15: jaeger.api_v3.QueryService.GetServices:input_type -> jaeger.api_v3.GetServicesRequest
 	5,  // 16: jaeger.api_v3.QueryService.GetOperations:input_type -> jaeger.api_v3.GetOperationsRequest
-	6,  // 17: jaeger.api_v3.QueryService.GetAttributeNames:input_type -> jaeger.api_v3.GetHotAttributeNamesRequest
+	6,  // 17: jaeger.api_v3.QueryService.GetHotAttributeNames:input_type -> jaeger.api_v3.GetHotAttributeNamesRequest
 	8,  // 18: jaeger.api_v3.QueryService.GetTopKAttributeValues:input_type -> jaeger.api_v3.GetTopKAttributeValuesRequest
 	12, // 19: jaeger.api_v3.QueryService.GetBottomKAttributeValues:input_type -> jaeger.api_v3.GetBottomKAttributeValuesRequest
 	21, // 20: jaeger.api_v3.QueryService.GetTrace:output_type -> opentelemetry.proto.trace.v1.TracesData
 	21, // 21: jaeger.api_v3.QueryService.FindTraces:output_type -> opentelemetry.proto.trace.v1.TracesData
 	4,  // 22: jaeger.api_v3.QueryService.GetServices:output_type -> jaeger.api_v3.GetServicesResponse
 	14, // 23: jaeger.api_v3.QueryService.GetOperations:output_type -> jaeger.api_v3.GetOperationsResponse
-	7,  // 24: jaeger.api_v3.QueryService.GetAttributeNames:output_type -> jaeger.api_v3.GetAttributeNamesResponse
+	7,  // 24: jaeger.api_v3.QueryService.GetHotAttributeNames:output_type -> jaeger.api_v3.GetAttributeNamesResponse
 	10, // 25: jaeger.api_v3.QueryService.GetTopKAttributeValues:output_type -> jaeger.api_v3.GetTopKAttributeValuesResponse
 	11, // 26: jaeger.api_v3.QueryService.GetBottomKAttributeValues:output_type -> jaeger.api_v3.GetBottomKAttributeValuesResponse
 	20, // [20:27] is the sub-list for method output_type
