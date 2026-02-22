@@ -19,7 +19,7 @@ This repository only include Go code for some of the Thrift and Protobuf modules
 
 To generate the stubs for your own purposes:
   * clone the repository
-  * run `make proto-all` or `make thrift-all`
+  * run `make buf-gen` or `make proto-all` or `make thrift-all`
   * the stubs will be generated under `.thrift-gen-polyglot/gen-{lang}` for Thrift and `.proto-gen-polyglot/{lang}` for Protobuf
 
 
