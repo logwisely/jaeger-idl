@@ -22,6 +22,7 @@ package api_v3
 
 import (
 	v1 "go.opentelemetry.io/proto/otlp/trace/v1"
+	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	durationpb "google.golang.org/protobuf/types/known/durationpb"
@@ -426,7 +427,7 @@ type GetOperationsRequest struct {
 	Service string `protobuf:"bytes,1,opt,name=service,proto3" json:"service,omitempty"`
 	// Optional span kind.
 	SpanKind string `protobuf:"bytes,2,opt,name=span_kind,json=spanKind,proto3" json:"span_kind,omitempty"`
-	// Optional. The workspace ID to filter Services.
+	// Optional. The workspace ID to filter Operations.
 	WorkspaceId   string `protobuf:"bytes,3,opt,name=workspace_id,json=workspaceId,proto3" json:"workspace_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -483,419 +484,6 @@ func (x *GetOperationsRequest) GetWorkspaceId() string {
 	return ""
 }
 
-// Request object to get list of hot attribute names.
-type GetHotAttributeNamesRequest struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// Optional. The workspace ID to filter Services.
-	WorkspaceId string `protobuf:"bytes,1,opt,name=workspace_id,json=workspaceId,proto3" json:"workspace_id,omitempty"`
-	// Required service name.
-	Service string `protobuf:"bytes,2,opt,name=service,proto3" json:"service,omitempty"`
-	// Optional. operation_name filters by a specific operation name.
-	OperationName string `protobuf:"bytes,3,opt,name=operation_name,json=operationName,proto3" json:"operation_name,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *GetHotAttributeNamesRequest) Reset() {
-	*x = GetHotAttributeNamesRequest{}
-	mi := &file_api_v3_query_service_proto_msgTypes[6]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *GetHotAttributeNamesRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetHotAttributeNamesRequest) ProtoMessage() {}
-
-func (x *GetHotAttributeNamesRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_v3_query_service_proto_msgTypes[6]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GetHotAttributeNamesRequest.ProtoReflect.Descriptor instead.
-func (*GetHotAttributeNamesRequest) Descriptor() ([]byte, []int) {
-	return file_api_v3_query_service_proto_rawDescGZIP(), []int{6}
-}
-
-func (x *GetHotAttributeNamesRequest) GetWorkspaceId() string {
-	if x != nil {
-		return x.WorkspaceId
-	}
-	return ""
-}
-
-func (x *GetHotAttributeNamesRequest) GetService() string {
-	if x != nil {
-		return x.Service
-	}
-	return ""
-}
-
-func (x *GetHotAttributeNamesRequest) GetOperationName() string {
-	if x != nil {
-		return x.OperationName
-	}
-	return ""
-}
-
-// Response object to get attribute names.
-type GetAttributeNamesResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Names         []string               `protobuf:"bytes,1,rep,name=names,proto3" json:"names,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *GetAttributeNamesResponse) Reset() {
-	*x = GetAttributeNamesResponse{}
-	mi := &file_api_v3_query_service_proto_msgTypes[7]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *GetAttributeNamesResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetAttributeNamesResponse) ProtoMessage() {}
-
-func (x *GetAttributeNamesResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_v3_query_service_proto_msgTypes[7]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GetAttributeNamesResponse.ProtoReflect.Descriptor instead.
-func (*GetAttributeNamesResponse) Descriptor() ([]byte, []int) {
-	return file_api_v3_query_service_proto_rawDescGZIP(), []int{7}
-}
-
-func (x *GetAttributeNamesResponse) GetNames() []string {
-	if x != nil {
-		return x.Names
-	}
-	return nil
-}
-
-// Request object to get top-k attribute values.
-type GetTopKAttributeValuesRequest struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// Optional. The workspace ID to filter Services.
-	WorkspaceId string `protobuf:"bytes,1,opt,name=workspace_id,json=workspaceId,proto3" json:"workspace_id,omitempty"`
-	// Required service name.
-	Service string `protobuf:"bytes,2,opt,name=service,proto3" json:"service,omitempty"`
-	// Optional. operation_name filters by a specific operation name.
-	OperationName string `protobuf:"bytes,3,opt,name=operation_name,json=operationName,proto3" json:"operation_name,omitempty"`
-	// Required attribute name.
-	AttributeName string `protobuf:"bytes,4,opt,name=attribute_name,json=attributeName,proto3" json:"attribute_name,omitempty"`
-	// Required k. The number of top values to return. default is 10.
-	K             int32 `protobuf:"varint,5,opt,name=k,proto3" json:"k,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *GetTopKAttributeValuesRequest) Reset() {
-	*x = GetTopKAttributeValuesRequest{}
-	mi := &file_api_v3_query_service_proto_msgTypes[8]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *GetTopKAttributeValuesRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetTopKAttributeValuesRequest) ProtoMessage() {}
-
-func (x *GetTopKAttributeValuesRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_v3_query_service_proto_msgTypes[8]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GetTopKAttributeValuesRequest.ProtoReflect.Descriptor instead.
-func (*GetTopKAttributeValuesRequest) Descriptor() ([]byte, []int) {
-	return file_api_v3_query_service_proto_rawDescGZIP(), []int{8}
-}
-
-func (x *GetTopKAttributeValuesRequest) GetWorkspaceId() string {
-	if x != nil {
-		return x.WorkspaceId
-	}
-	return ""
-}
-
-func (x *GetTopKAttributeValuesRequest) GetService() string {
-	if x != nil {
-		return x.Service
-	}
-	return ""
-}
-
-func (x *GetTopKAttributeValuesRequest) GetOperationName() string {
-	if x != nil {
-		return x.OperationName
-	}
-	return ""
-}
-
-func (x *GetTopKAttributeValuesRequest) GetAttributeName() string {
-	if x != nil {
-		return x.AttributeName
-	}
-	return ""
-}
-
-func (x *GetTopKAttributeValuesRequest) GetK() int32 {
-	if x != nil {
-		return x.K
-	}
-	return 0
-}
-
-type AttributeValueCount struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Value         string                 `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
-	Count         int64                  `protobuf:"varint,2,opt,name=count,proto3" json:"count,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *AttributeValueCount) Reset() {
-	*x = AttributeValueCount{}
-	mi := &file_api_v3_query_service_proto_msgTypes[9]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *AttributeValueCount) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*AttributeValueCount) ProtoMessage() {}
-
-func (x *AttributeValueCount) ProtoReflect() protoreflect.Message {
-	mi := &file_api_v3_query_service_proto_msgTypes[9]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use AttributeValueCount.ProtoReflect.Descriptor instead.
-func (*AttributeValueCount) Descriptor() ([]byte, []int) {
-	return file_api_v3_query_service_proto_rawDescGZIP(), []int{9}
-}
-
-func (x *AttributeValueCount) GetValue() string {
-	if x != nil {
-		return x.Value
-	}
-	return ""
-}
-
-func (x *AttributeValueCount) GetCount() int64 {
-	if x != nil {
-		return x.Count
-	}
-	return 0
-}
-
-type GetTopKAttributeValuesResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Values        []*AttributeValueCount `protobuf:"bytes,1,rep,name=values,proto3" json:"values,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *GetTopKAttributeValuesResponse) Reset() {
-	*x = GetTopKAttributeValuesResponse{}
-	mi := &file_api_v3_query_service_proto_msgTypes[10]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *GetTopKAttributeValuesResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetTopKAttributeValuesResponse) ProtoMessage() {}
-
-func (x *GetTopKAttributeValuesResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_v3_query_service_proto_msgTypes[10]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GetTopKAttributeValuesResponse.ProtoReflect.Descriptor instead.
-func (*GetTopKAttributeValuesResponse) Descriptor() ([]byte, []int) {
-	return file_api_v3_query_service_proto_rawDescGZIP(), []int{10}
-}
-
-func (x *GetTopKAttributeValuesResponse) GetValues() []*AttributeValueCount {
-	if x != nil {
-		return x.Values
-	}
-	return nil
-}
-
-type GetBottomKAttributeValuesResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Values        []*AttributeValueCount `protobuf:"bytes,1,rep,name=values,proto3" json:"values,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *GetBottomKAttributeValuesResponse) Reset() {
-	*x = GetBottomKAttributeValuesResponse{}
-	mi := &file_api_v3_query_service_proto_msgTypes[11]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *GetBottomKAttributeValuesResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetBottomKAttributeValuesResponse) ProtoMessage() {}
-
-func (x *GetBottomKAttributeValuesResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_v3_query_service_proto_msgTypes[11]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GetBottomKAttributeValuesResponse.ProtoReflect.Descriptor instead.
-func (*GetBottomKAttributeValuesResponse) Descriptor() ([]byte, []int) {
-	return file_api_v3_query_service_proto_rawDescGZIP(), []int{11}
-}
-
-func (x *GetBottomKAttributeValuesResponse) GetValues() []*AttributeValueCount {
-	if x != nil {
-		return x.Values
-	}
-	return nil
-}
-
-// Request object to get bottom-k attribute values.
-type GetBottomKAttributeValuesRequest struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// Optional. The workspace ID to filter Services.
-	WorkspaceId string `protobuf:"bytes,1,opt,name=workspace_id,json=workspaceId,proto3" json:"workspace_id,omitempty"`
-	// Required service name.
-	Service string `protobuf:"bytes,2,opt,name=service,proto3" json:"service,omitempty"`
-	// Optional. operation_name filters by a specific operation name.
-	OperationName string `protobuf:"bytes,3,opt,name=operation_name,json=operationName,proto3" json:"operation_name,omitempty"`
-	// Required attribute name.
-	AttributeName string `protobuf:"bytes,4,opt,name=attribute_name,json=attributeName,proto3" json:"attribute_name,omitempty"`
-	// Required k. The number of bottom values to return. default is 10.
-	K             int32 `protobuf:"varint,5,opt,name=k,proto3" json:"k,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *GetBottomKAttributeValuesRequest) Reset() {
-	*x = GetBottomKAttributeValuesRequest{}
-	mi := &file_api_v3_query_service_proto_msgTypes[12]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *GetBottomKAttributeValuesRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetBottomKAttributeValuesRequest) ProtoMessage() {}
-
-func (x *GetBottomKAttributeValuesRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_v3_query_service_proto_msgTypes[12]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GetBottomKAttributeValuesRequest.ProtoReflect.Descriptor instead.
-func (*GetBottomKAttributeValuesRequest) Descriptor() ([]byte, []int) {
-	return file_api_v3_query_service_proto_rawDescGZIP(), []int{12}
-}
-
-func (x *GetBottomKAttributeValuesRequest) GetWorkspaceId() string {
-	if x != nil {
-		return x.WorkspaceId
-	}
-	return ""
-}
-
-func (x *GetBottomKAttributeValuesRequest) GetService() string {
-	if x != nil {
-		return x.Service
-	}
-	return ""
-}
-
-func (x *GetBottomKAttributeValuesRequest) GetOperationName() string {
-	if x != nil {
-		return x.OperationName
-	}
-	return ""
-}
-
-func (x *GetBottomKAttributeValuesRequest) GetAttributeName() string {
-	if x != nil {
-		return x.AttributeName
-	}
-	return ""
-}
-
-func (x *GetBottomKAttributeValuesRequest) GetK() int32 {
-	if x != nil {
-		return x.K
-	}
-	return 0
-}
-
 // Operation encapsulates information about operation.
 type Operation struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
@@ -907,7 +495,7 @@ type Operation struct {
 
 func (x *Operation) Reset() {
 	*x = Operation{}
-	mi := &file_api_v3_query_service_proto_msgTypes[13]
+	mi := &file_api_v3_query_service_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -919,7 +507,7 @@ func (x *Operation) String() string {
 func (*Operation) ProtoMessage() {}
 
 func (x *Operation) ProtoReflect() protoreflect.Message {
-	mi := &file_api_v3_query_service_proto_msgTypes[13]
+	mi := &file_api_v3_query_service_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -932,7 +520,7 @@ func (x *Operation) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Operation.ProtoReflect.Descriptor instead.
 func (*Operation) Descriptor() ([]byte, []int) {
-	return file_api_v3_query_service_proto_rawDescGZIP(), []int{13}
+	return file_api_v3_query_service_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *Operation) GetName() string {
@@ -959,7 +547,7 @@ type GetOperationsResponse struct {
 
 func (x *GetOperationsResponse) Reset() {
 	*x = GetOperationsResponse{}
-	mi := &file_api_v3_query_service_proto_msgTypes[14]
+	mi := &file_api_v3_query_service_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -971,7 +559,7 @@ func (x *GetOperationsResponse) String() string {
 func (*GetOperationsResponse) ProtoMessage() {}
 
 func (x *GetOperationsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_v3_query_service_proto_msgTypes[14]
+	mi := &file_api_v3_query_service_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -984,12 +572,544 @@ func (x *GetOperationsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetOperationsResponse.ProtoReflect.Descriptor instead.
 func (*GetOperationsResponse) Descriptor() ([]byte, []int) {
-	return file_api_v3_query_service_proto_rawDescGZIP(), []int{14}
+	return file_api_v3_query_service_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *GetOperationsResponse) GetOperations() []*Operation {
 	if x != nil {
 		return x.Operations
+	}
+	return nil
+}
+
+type GetDependenciesRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// Required. The start time for the time range to search dependencies.
+	StartTime *timestamppb.Timestamp `protobuf:"bytes,1,opt,name=start_time,json=startTime,proto3" json:"start_time,omitempty"`
+	// Required. The end time for the time range to search dependencies.
+	EndTime       *timestamppb.Timestamp `protobuf:"bytes,2,opt,name=end_time,json=endTime,proto3" json:"end_time,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetDependenciesRequest) Reset() {
+	*x = GetDependenciesRequest{}
+	mi := &file_api_v3_query_service_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetDependenciesRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetDependenciesRequest) ProtoMessage() {}
+
+func (x *GetDependenciesRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_api_v3_query_service_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetDependenciesRequest.ProtoReflect.Descriptor instead.
+func (*GetDependenciesRequest) Descriptor() ([]byte, []int) {
+	return file_api_v3_query_service_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *GetDependenciesRequest) GetStartTime() *timestamppb.Timestamp {
+	if x != nil {
+		return x.StartTime
+	}
+	return nil
+}
+
+func (x *GetDependenciesRequest) GetEndTime() *timestamppb.Timestamp {
+	if x != nil {
+		return x.EndTime
+	}
+	return nil
+}
+
+type DependenciesResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Dependencies  []*Dependency          `protobuf:"bytes,1,rep,name=dependencies,proto3" json:"dependencies,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DependenciesResponse) Reset() {
+	*x = DependenciesResponse{}
+	mi := &file_api_v3_query_service_proto_msgTypes[9]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DependenciesResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DependenciesResponse) ProtoMessage() {}
+
+func (x *DependenciesResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_api_v3_query_service_proto_msgTypes[9]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DependenciesResponse.ProtoReflect.Descriptor instead.
+func (*DependenciesResponse) Descriptor() ([]byte, []int) {
+	return file_api_v3_query_service_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *DependenciesResponse) GetDependencies() []*Dependency {
+	if x != nil {
+		return x.Dependencies
+	}
+	return nil
+}
+
+type Dependency struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Parent        string                 `protobuf:"bytes,1,opt,name=parent,proto3" json:"parent,omitempty"`
+	Child         string                 `protobuf:"bytes,2,opt,name=child,proto3" json:"child,omitempty"`
+	CallCount     uint64                 `protobuf:"varint,3,opt,name=call_count,json=callCount,proto3" json:"call_count,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *Dependency) Reset() {
+	*x = Dependency{}
+	mi := &file_api_v3_query_service_proto_msgTypes[10]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Dependency) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Dependency) ProtoMessage() {}
+
+func (x *Dependency) ProtoReflect() protoreflect.Message {
+	mi := &file_api_v3_query_service_proto_msgTypes[10]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Dependency.ProtoReflect.Descriptor instead.
+func (*Dependency) Descriptor() ([]byte, []int) {
+	return file_api_v3_query_service_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *Dependency) GetParent() string {
+	if x != nil {
+		return x.Parent
+	}
+	return ""
+}
+
+func (x *Dependency) GetChild() string {
+	if x != nil {
+		return x.Child
+	}
+	return ""
+}
+
+func (x *Dependency) GetCallCount() uint64 {
+	if x != nil {
+		return x.CallCount
+	}
+	return 0
+}
+
+// Request object to get indexed attribute names.
+// "Indexed" attributes are the most frequently used attributes in the trace data,
+// which are often used/allowed for querying and filtering.
+type GetIndexedAttributesNamesRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// Optional. The workspace ID to filter Operations.
+	WorkspaceId string `protobuf:"bytes,1,opt,name=workspace_id,json=workspaceId,proto3" json:"workspace_id,omitempty"`
+	// service_name filters spans generated by a specific service.
+	ServiceName string `protobuf:"bytes,2,opt,name=service_name,json=serviceName,proto3" json:"service_name,omitempty"`
+	// Query parameters used to scope the suggestions.
+	Query *TraceQueryParameters `protobuf:"bytes,3,opt,name=query,proto3" json:"query,omitempty"`
+	// Optional. Maximum number of names to return. If unset or <=0, the server chooses a default.
+	Limit         int32 `protobuf:"varint,4,opt,name=limit,proto3" json:"limit,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetIndexedAttributesNamesRequest) Reset() {
+	*x = GetIndexedAttributesNamesRequest{}
+	mi := &file_api_v3_query_service_proto_msgTypes[11]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetIndexedAttributesNamesRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetIndexedAttributesNamesRequest) ProtoMessage() {}
+
+func (x *GetIndexedAttributesNamesRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_api_v3_query_service_proto_msgTypes[11]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetIndexedAttributesNamesRequest.ProtoReflect.Descriptor instead.
+func (*GetIndexedAttributesNamesRequest) Descriptor() ([]byte, []int) {
+	return file_api_v3_query_service_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *GetIndexedAttributesNamesRequest) GetWorkspaceId() string {
+	if x != nil {
+		return x.WorkspaceId
+	}
+	return ""
+}
+
+func (x *GetIndexedAttributesNamesRequest) GetServiceName() string {
+	if x != nil {
+		return x.ServiceName
+	}
+	return ""
+}
+
+func (x *GetIndexedAttributesNamesRequest) GetQuery() *TraceQueryParameters {
+	if x != nil {
+		return x.Query
+	}
+	return nil
+}
+
+func (x *GetIndexedAttributesNamesRequest) GetLimit() int32 {
+	if x != nil {
+		return x.Limit
+	}
+	return 0
+}
+
+// Response object to get attribute names.
+type GetAttributesNamesResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Names         []string               `protobuf:"bytes,1,rep,name=names,proto3" json:"names,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetAttributesNamesResponse) Reset() {
+	*x = GetAttributesNamesResponse{}
+	mi := &file_api_v3_query_service_proto_msgTypes[12]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetAttributesNamesResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetAttributesNamesResponse) ProtoMessage() {}
+
+func (x *GetAttributesNamesResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_api_v3_query_service_proto_msgTypes[12]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetAttributesNamesResponse.ProtoReflect.Descriptor instead.
+func (*GetAttributesNamesResponse) Descriptor() ([]byte, []int) {
+	return file_api_v3_query_service_proto_rawDescGZIP(), []int{12}
+}
+
+func (x *GetAttributesNamesResponse) GetNames() []string {
+	if x != nil {
+		return x.Names
+	}
+	return nil
+}
+
+// Request object to get top-K attribute values.
+type GetTopKAttributeValuesRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// Optional. The workspace ID to filter Operations.
+	WorkspaceId string `protobuf:"bytes,1,opt,name=workspace_id,json=workspaceId,proto3" json:"workspace_id,omitempty"`
+	// service_name filters spans generated by a specific service.
+	ServiceName string `protobuf:"bytes,2,opt,name=service_name,json=serviceName,proto3" json:"service_name,omitempty"`
+	// Query parameters used to scope the suggestions.
+	Query *TraceQueryParameters `protobuf:"bytes,3,opt,name=query,proto3" json:"query,omitempty"`
+	// Required. The attribute name to fetch values for.
+	AttributeName string `protobuf:"bytes,4,opt,name=attribute_name,json=attributeName,proto3" json:"attribute_name,omitempty"`
+	// Optional. Number of values to return. If unset or <=0, the server chooses a default.
+	K             int32 `protobuf:"varint,5,opt,name=k,proto3" json:"k,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetTopKAttributeValuesRequest) Reset() {
+	*x = GetTopKAttributeValuesRequest{}
+	mi := &file_api_v3_query_service_proto_msgTypes[13]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetTopKAttributeValuesRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetTopKAttributeValuesRequest) ProtoMessage() {}
+
+func (x *GetTopKAttributeValuesRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_api_v3_query_service_proto_msgTypes[13]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetTopKAttributeValuesRequest.ProtoReflect.Descriptor instead.
+func (*GetTopKAttributeValuesRequest) Descriptor() ([]byte, []int) {
+	return file_api_v3_query_service_proto_rawDescGZIP(), []int{13}
+}
+
+func (x *GetTopKAttributeValuesRequest) GetWorkspaceId() string {
+	if x != nil {
+		return x.WorkspaceId
+	}
+	return ""
+}
+
+func (x *GetTopKAttributeValuesRequest) GetServiceName() string {
+	if x != nil {
+		return x.ServiceName
+	}
+	return ""
+}
+
+func (x *GetTopKAttributeValuesRequest) GetQuery() *TraceQueryParameters {
+	if x != nil {
+		return x.Query
+	}
+	return nil
+}
+
+func (x *GetTopKAttributeValuesRequest) GetAttributeName() string {
+	if x != nil {
+		return x.AttributeName
+	}
+	return ""
+}
+
+func (x *GetTopKAttributeValuesRequest) GetK() int32 {
+	if x != nil {
+		return x.K
+	}
+	return 0
+}
+
+// Response object to get top-K attribute values.
+type GetTopKAttributeValuesResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Values        []string               `protobuf:"bytes,1,rep,name=values,proto3" json:"values,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetTopKAttributeValuesResponse) Reset() {
+	*x = GetTopKAttributeValuesResponse{}
+	mi := &file_api_v3_query_service_proto_msgTypes[14]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetTopKAttributeValuesResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetTopKAttributeValuesResponse) ProtoMessage() {}
+
+func (x *GetTopKAttributeValuesResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_api_v3_query_service_proto_msgTypes[14]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetTopKAttributeValuesResponse.ProtoReflect.Descriptor instead.
+func (*GetTopKAttributeValuesResponse) Descriptor() ([]byte, []int) {
+	return file_api_v3_query_service_proto_rawDescGZIP(), []int{14}
+}
+
+func (x *GetTopKAttributeValuesResponse) GetValues() []string {
+	if x != nil {
+		return x.Values
+	}
+	return nil
+}
+
+// Request object to get bottom-K attribute values.
+type GetBottomKAttributeValuesRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// Optional. The workspace ID to filter Operations.
+	WorkspaceId string `protobuf:"bytes,1,opt,name=workspace_id,json=workspaceId,proto3" json:"workspace_id,omitempty"`
+	// service_name filters spans generated by a specific service.
+	ServiceName string `protobuf:"bytes,2,opt,name=service_name,json=serviceName,proto3" json:"service_name,omitempty"`
+	// Query parameters used to scope the suggestions.
+	Query *TraceQueryParameters `protobuf:"bytes,3,opt,name=query,proto3" json:"query,omitempty"`
+	// Required. The attribute name to fetch values for.
+	AttributeName string `protobuf:"bytes,4,opt,name=attribute_name,json=attributeName,proto3" json:"attribute_name,omitempty"`
+	// Optional. Number of values to return. If unset or <=0, the server chooses a default.
+	K             int32 `protobuf:"varint,5,opt,name=k,proto3" json:"k,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetBottomKAttributeValuesRequest) Reset() {
+	*x = GetBottomKAttributeValuesRequest{}
+	mi := &file_api_v3_query_service_proto_msgTypes[15]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetBottomKAttributeValuesRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetBottomKAttributeValuesRequest) ProtoMessage() {}
+
+func (x *GetBottomKAttributeValuesRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_api_v3_query_service_proto_msgTypes[15]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetBottomKAttributeValuesRequest.ProtoReflect.Descriptor instead.
+func (*GetBottomKAttributeValuesRequest) Descriptor() ([]byte, []int) {
+	return file_api_v3_query_service_proto_rawDescGZIP(), []int{15}
+}
+
+func (x *GetBottomKAttributeValuesRequest) GetWorkspaceId() string {
+	if x != nil {
+		return x.WorkspaceId
+	}
+	return ""
+}
+
+func (x *GetBottomKAttributeValuesRequest) GetServiceName() string {
+	if x != nil {
+		return x.ServiceName
+	}
+	return ""
+}
+
+func (x *GetBottomKAttributeValuesRequest) GetQuery() *TraceQueryParameters {
+	if x != nil {
+		return x.Query
+	}
+	return nil
+}
+
+func (x *GetBottomKAttributeValuesRequest) GetAttributeName() string {
+	if x != nil {
+		return x.AttributeName
+	}
+	return ""
+}
+
+func (x *GetBottomKAttributeValuesRequest) GetK() int32 {
+	if x != nil {
+		return x.K
+	}
+	return 0
+}
+
+// Response object to get bottom-K attribute values.
+type GetBottomKAttributeValuesResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Values        []string               `protobuf:"bytes,1,rep,name=values,proto3" json:"values,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetBottomKAttributeValuesResponse) Reset() {
+	*x = GetBottomKAttributeValuesResponse{}
+	mi := &file_api_v3_query_service_proto_msgTypes[16]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetBottomKAttributeValuesResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetBottomKAttributeValuesResponse) ProtoMessage() {}
+
+func (x *GetBottomKAttributeValuesResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_api_v3_query_service_proto_msgTypes[16]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetBottomKAttributeValuesResponse.ProtoReflect.Descriptor instead.
+func (*GetBottomKAttributeValuesResponse) Descriptor() ([]byte, []int) {
+	return file_api_v3_query_service_proto_rawDescGZIP(), []int{16}
+}
+
+func (x *GetBottomKAttributeValuesResponse) GetValues() []string {
+	if x != nil {
+		return x.Values
 	}
 	return nil
 }
@@ -1005,7 +1125,7 @@ type GRPCGatewayError struct {
 
 func (x *GRPCGatewayError) Reset() {
 	*x = GRPCGatewayError{}
-	mi := &file_api_v3_query_service_proto_msgTypes[15]
+	mi := &file_api_v3_query_service_proto_msgTypes[17]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1017,7 +1137,7 @@ func (x *GRPCGatewayError) String() string {
 func (*GRPCGatewayError) ProtoMessage() {}
 
 func (x *GRPCGatewayError) ProtoReflect() protoreflect.Message {
-	mi := &file_api_v3_query_service_proto_msgTypes[15]
+	mi := &file_api_v3_query_service_proto_msgTypes[17]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1030,7 +1150,7 @@ func (x *GRPCGatewayError) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GRPCGatewayError.ProtoReflect.Descriptor instead.
 func (*GRPCGatewayError) Descriptor() ([]byte, []int) {
-	return file_api_v3_query_service_proto_rawDescGZIP(), []int{15}
+	return file_api_v3_query_service_proto_rawDescGZIP(), []int{17}
 }
 
 func (x *GRPCGatewayError) GetError() *GRPCGatewayError_GRPCGatewayErrorDetails {
@@ -1060,7 +1180,7 @@ type GRPCGatewayWrapper struct {
 
 func (x *GRPCGatewayWrapper) Reset() {
 	*x = GRPCGatewayWrapper{}
-	mi := &file_api_v3_query_service_proto_msgTypes[16]
+	mi := &file_api_v3_query_service_proto_msgTypes[18]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1072,7 +1192,7 @@ func (x *GRPCGatewayWrapper) String() string {
 func (*GRPCGatewayWrapper) ProtoMessage() {}
 
 func (x *GRPCGatewayWrapper) ProtoReflect() protoreflect.Message {
-	mi := &file_api_v3_query_service_proto_msgTypes[16]
+	mi := &file_api_v3_query_service_proto_msgTypes[18]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1085,7 +1205,7 @@ func (x *GRPCGatewayWrapper) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GRPCGatewayWrapper.ProtoReflect.Descriptor instead.
 func (*GRPCGatewayWrapper) Descriptor() ([]byte, []int) {
-	return file_api_v3_query_service_proto_rawDescGZIP(), []int{16}
+	return file_api_v3_query_service_proto_rawDescGZIP(), []int{18}
 }
 
 func (x *GRPCGatewayWrapper) GetResult() *v1.TracesData {
@@ -1107,7 +1227,7 @@ type GRPCGatewayError_GRPCGatewayErrorDetails struct {
 
 func (x *GRPCGatewayError_GRPCGatewayErrorDetails) Reset() {
 	*x = GRPCGatewayError_GRPCGatewayErrorDetails{}
-	mi := &file_api_v3_query_service_proto_msgTypes[18]
+	mi := &file_api_v3_query_service_proto_msgTypes[20]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1119,7 +1239,7 @@ func (x *GRPCGatewayError_GRPCGatewayErrorDetails) String() string {
 func (*GRPCGatewayError_GRPCGatewayErrorDetails) ProtoMessage() {}
 
 func (x *GRPCGatewayError_GRPCGatewayErrorDetails) ProtoReflect() protoreflect.Message {
-	mi := &file_api_v3_query_service_proto_msgTypes[18]
+	mi := &file_api_v3_query_service_proto_msgTypes[20]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1132,7 +1252,7 @@ func (x *GRPCGatewayError_GRPCGatewayErrorDetails) ProtoReflect() protoreflect.M
 
 // Deprecated: Use GRPCGatewayError_GRPCGatewayErrorDetails.ProtoReflect.Descriptor instead.
 func (*GRPCGatewayError_GRPCGatewayErrorDetails) Descriptor() ([]byte, []int) {
-	return file_api_v3_query_service_proto_rawDescGZIP(), []int{15, 0}
+	return file_api_v3_query_service_proto_rawDescGZIP(), []int{17, 0}
 }
 
 func (x *GRPCGatewayError_GRPCGatewayErrorDetails) GetGrpcCode() int32 {
@@ -1167,7 +1287,7 @@ var File_api_v3_query_service_proto protoreflect.FileDescriptor
 
 const file_api_v3_query_service_proto_rawDesc = "" +
 	"\n" +
-	"\x1aapi_v3/query_service.proto\x12\rjaeger.api_v3\x1a\x1egoogle/protobuf/duration.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a(opentelemetry/proto/trace/v1/trace.proto\"\xe0\x01\n" +
+	"\x1aapi_v3/query_service.proto\x12\rjaeger.api_v3\x1a\x1cgoogle/api/annotations.proto\x1a\x1fgoogle/api/field_behavior.proto\x1a\x1egoogle/protobuf/duration.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a(opentelemetry/proto/trace/v1/trace.proto\"\xe0\x01\n" +
 	"\x0fGetTraceRequest\x12\x19\n" +
 	"\btrace_id\x18\x01 \x01(\tR\atraceId\x129\n" +
 	"\n" +
@@ -1197,45 +1317,55 @@ const file_api_v3_query_service_proto_rawDesc = "" +
 	"\x11FindTracesRequest\x129\n" +
 	"\x05query\x18\x01 \x01(\v2#.jaeger.api_v3.TraceQueryParametersR\x05query\"7\n" +
 	"\x12GetServicesRequest\x12!\n" +
-	"\fworkspace_id\x18\x01 \x01(\tR\vworkspaceId\"1\n" +
-	"\x13GetServicesResponse\x12\x1a\n" +
-	"\bservices\x18\x01 \x03(\tR\bservices\"p\n" +
-	"\x14GetOperationsRequest\x12\x18\n" +
-	"\aservice\x18\x01 \x01(\tR\aservice\x12\x1b\n" +
-	"\tspan_kind\x18\x02 \x01(\tR\bspanKind\x12!\n" +
-	"\fworkspace_id\x18\x03 \x01(\tR\vworkspaceId\"\x81\x01\n" +
-	"\x1bGetHotAttributeNamesRequest\x12!\n" +
-	"\fworkspace_id\x18\x01 \x01(\tR\vworkspaceId\x12\x18\n" +
-	"\aservice\x18\x02 \x01(\tR\aservice\x12%\n" +
-	"\x0eoperation_name\x18\x03 \x01(\tR\roperationName\"1\n" +
-	"\x19GetAttributeNamesResponse\x12\x14\n" +
-	"\x05names\x18\x01 \x03(\tR\x05names\"\xb8\x01\n" +
-	"\x1dGetTopKAttributeValuesRequest\x12!\n" +
-	"\fworkspace_id\x18\x01 \x01(\tR\vworkspaceId\x12\x18\n" +
-	"\aservice\x18\x02 \x01(\tR\aservice\x12%\n" +
-	"\x0eoperation_name\x18\x03 \x01(\tR\roperationName\x12%\n" +
-	"\x0eattribute_name\x18\x04 \x01(\tR\rattributeName\x12\f\n" +
-	"\x01k\x18\x05 \x01(\x05R\x01k\"A\n" +
-	"\x13AttributeValueCount\x12\x14\n" +
-	"\x05value\x18\x01 \x01(\tR\x05value\x12\x14\n" +
-	"\x05count\x18\x02 \x01(\x03R\x05count\"\\\n" +
-	"\x1eGetTopKAttributeValuesResponse\x12:\n" +
-	"\x06values\x18\x01 \x03(\v2\".jaeger.api_v3.AttributeValueCountR\x06values\"_\n" +
-	"!GetBottomKAttributeValuesResponse\x12:\n" +
-	"\x06values\x18\x01 \x03(\v2\".jaeger.api_v3.AttributeValueCountR\x06values\"\xbb\x01\n" +
-	" GetBottomKAttributeValuesRequest\x12!\n" +
-	"\fworkspace_id\x18\x01 \x01(\tR\vworkspaceId\x12\x18\n" +
-	"\aservice\x18\x02 \x01(\tR\aservice\x12%\n" +
-	"\x0eoperation_name\x18\x03 \x01(\tR\roperationName\x12%\n" +
-	"\x0eattribute_name\x18\x04 \x01(\tR\rattributeName\x12\f\n" +
-	"\x01k\x18\x05 \x01(\x05R\x01k\"<\n" +
-	"\tOperation\x12\x12\n" +
-	"\x04name\x18\x01 \x01(\tR\x04name\x12\x1b\n" +
-	"\tspan_kind\x18\x02 \x01(\tR\bspanKind\"Q\n" +
-	"\x15GetOperationsResponse\x128\n" +
+	"\fworkspace_id\x18\x01 \x01(\tR\vworkspaceId\"6\n" +
+	"\x13GetServicesResponse\x12\x1f\n" +
+	"\bservices\x18\x01 \x03(\tB\x03\xe0A\x02R\bservices\"\x7f\n" +
+	"\x14GetOperationsRequest\x12\x1d\n" +
+	"\aservice\x18\x01 \x01(\tB\x03\xe0A\x02R\aservice\x12 \n" +
+	"\tspan_kind\x18\x02 \x01(\tB\x03\xe0A\x01R\bspanKind\x12&\n" +
+	"\fworkspace_id\x18\x03 \x01(\tB\x03\xe0A\x01R\vworkspaceId\"F\n" +
+	"\tOperation\x12\x17\n" +
+	"\x04name\x18\x01 \x01(\tB\x03\xe0A\x02R\x04name\x12 \n" +
+	"\tspan_kind\x18\x02 \x01(\tB\x03\xe0A\x01R\bspanKind\"V\n" +
+	"\x15GetOperationsResponse\x12=\n" +
 	"\n" +
-	"operations\x18\x01 \x03(\v2\x18.jaeger.api_v3.OperationR\n" +
-	"operations\"\xef\x01\n" +
+	"operations\x18\x01 \x03(\v2\x18.jaeger.api_v3.OperationB\x03\xe0A\x02R\n" +
+	"operations\"\x8a\x01\n" +
+	"\x16GetDependenciesRequest\x129\n" +
+	"\n" +
+	"start_time\x18\x01 \x01(\v2\x1a.google.protobuf.TimestampR\tstartTime\x125\n" +
+	"\bend_time\x18\x02 \x01(\v2\x1a.google.protobuf.TimestampR\aendTime\"Z\n" +
+	"\x14DependenciesResponse\x12B\n" +
+	"\fdependencies\x18\x01 \x03(\v2\x19.jaeger.api_v3.DependencyB\x03\xe0A\x02R\fdependencies\"h\n" +
+	"\n" +
+	"Dependency\x12\x1b\n" +
+	"\x06parent\x18\x01 \x01(\tB\x03\xe0A\x02R\x06parent\x12\x19\n" +
+	"\x05child\x18\x02 \x01(\tB\x03\xe0A\x02R\x05child\x12\"\n" +
+	"\n" +
+	"call_count\x18\x03 \x01(\x04B\x03\xe0A\x02R\tcallCount\"\xcd\x01\n" +
+	" GetIndexedAttributesNamesRequest\x12&\n" +
+	"\fworkspace_id\x18\x01 \x01(\tB\x03\xe0A\x01R\vworkspaceId\x12&\n" +
+	"\fservice_name\x18\x02 \x01(\tB\x03\xe0A\x02R\vserviceName\x12>\n" +
+	"\x05query\x18\x03 \x01(\v2#.jaeger.api_v3.TraceQueryParametersB\x03\xe0A\x02R\x05query\x12\x19\n" +
+	"\x05limit\x18\x04 \x01(\x05B\x03\xe0A\x01R\x05limit\"7\n" +
+	"\x1aGetAttributesNamesResponse\x12\x19\n" +
+	"\x05names\x18\x01 \x03(\tB\x03\xe0A\x02R\x05names\"\xee\x01\n" +
+	"\x1dGetTopKAttributeValuesRequest\x12&\n" +
+	"\fworkspace_id\x18\x01 \x01(\tB\x03\xe0A\x01R\vworkspaceId\x12&\n" +
+	"\fservice_name\x18\x02 \x01(\tB\x03\xe0A\x02R\vserviceName\x12>\n" +
+	"\x05query\x18\x03 \x01(\v2#.jaeger.api_v3.TraceQueryParametersB\x03\xe0A\x02R\x05query\x12*\n" +
+	"\x0eattribute_name\x18\x04 \x01(\tB\x03\xe0A\x02R\rattributeName\x12\x11\n" +
+	"\x01k\x18\x05 \x01(\x05B\x03\xe0A\x01R\x01k\"=\n" +
+	"\x1eGetTopKAttributeValuesResponse\x12\x1b\n" +
+	"\x06values\x18\x01 \x03(\tB\x03\xe0A\x02R\x06values\"\xf1\x01\n" +
+	" GetBottomKAttributeValuesRequest\x12&\n" +
+	"\fworkspace_id\x18\x01 \x01(\tB\x03\xe0A\x01R\vworkspaceId\x12&\n" +
+	"\fservice_name\x18\x02 \x01(\tB\x03\xe0A\x02R\vserviceName\x12>\n" +
+	"\x05query\x18\x03 \x01(\v2#.jaeger.api_v3.TraceQueryParametersB\x03\xe0A\x02R\x05query\x12*\n" +
+	"\x0eattribute_name\x18\x04 \x01(\tB\x03\xe0A\x02R\rattributeName\x12\x11\n" +
+	"\x01k\x18\x05 \x01(\x05B\x03\xe0A\x01R\x01k\"@\n" +
+	"!GetBottomKAttributeValuesResponse\x12\x1b\n" +
+	"\x06values\x18\x01 \x03(\tB\x03\xe0A\x02R\x06values\"\xef\x01\n" +
 	"\x10GRPCGatewayError\x12M\n" +
 	"\x05error\x18\x01 \x01(\v27.jaeger.api_v3.GRPCGatewayError.GRPCGatewayErrorDetailsR\x05error\x1a\x8b\x01\n" +
 	"\x17GRPCGatewayErrorDetails\x12\x1a\n" +
@@ -1246,16 +1376,17 @@ const file_api_v3_query_service_proto_rawDesc = "" +
 	"httpStatus\x18\x04 \x01(\tR\n" +
 	"httpStatus\"V\n" +
 	"\x12GRPCGatewayWrapper\x12@\n" +
-	"\x06result\x18\x01 \x01(\v2(.opentelemetry.proto.trace.v1.TracesDataR\x06result2\xe8\x05\n" +
-	"\fQueryService\x12X\n" +
-	"\bGetTrace\x12\x1e.jaeger.api_v3.GetTraceRequest\x1a(.opentelemetry.proto.trace.v1.TracesData\"\x000\x01\x12\\\n" +
+	"\x06result\x18\x01 \x01(\v2(.opentelemetry.proto.trace.v1.TracesDataR\x06result2\xe0\b\n" +
+	"\fQueryService\x12y\n" +
+	"\bGetTrace\x12\x1e.jaeger.api_v3.GetTraceRequest\x1a(.opentelemetry.proto.trace.v1.TracesData\"!\x82\xd3\xe4\x93\x02\x1b\x12\x19/api/v3/traces/{trace_id}0\x01\x12\x87\x01\n" +
 	"\n" +
-	"FindTraces\x12 .jaeger.api_v3.FindTracesRequest\x1a(.opentelemetry.proto.trace.v1.TracesData\"\x000\x01\x12V\n" +
-	"\vGetServices\x12!.jaeger.api_v3.GetServicesRequest\x1a\".jaeger.api_v3.GetServicesResponse\"\x00\x12\\\n" +
-	"\rGetOperations\x12#.jaeger.api_v3.GetOperationsRequest\x1a$.jaeger.api_v3.GetOperationsResponse\"\x00\x12n\n" +
-	"\x14GetHotAttributeNames\x12*.jaeger.api_v3.GetHotAttributeNamesRequest\x1a(.jaeger.api_v3.GetAttributeNamesResponse\"\x00\x12w\n" +
-	"\x16GetTopKAttributeValues\x12,.jaeger.api_v3.GetTopKAttributeValuesRequest\x1a-.jaeger.api_v3.GetTopKAttributeValuesResponse\"\x00\x12\x80\x01\n" +
-	"\x19GetBottomKAttributeValues\x12/.jaeger.api_v3.GetBottomKAttributeValuesRequest\x1a0.jaeger.api_v3.GetBottomKAttributeValuesResponse\"\x00B\xa7\x01\n" +
+	"FindTraces\x12 .jaeger.api_v3.FindTracesRequest\x1a(.opentelemetry.proto.trace.v1.TracesData\"+\x82\xd3\xe4\x93\x02%Z\x13:\x01*\"\x0e/api/v3/traces\x12\x0e/api/v3/traces0\x01\x12n\n" +
+	"\vGetServices\x12!.jaeger.api_v3.GetServicesRequest\x1a\".jaeger.api_v3.GetServicesResponse\"\x18\x82\xd3\xe4\x93\x02\x12\x12\x10/api/v3/services\x12v\n" +
+	"\rGetOperations\x12#.jaeger.api_v3.GetOperationsRequest\x1a$.jaeger.api_v3.GetOperationsResponse\"\x1a\x82\xd3\xe4\x93\x02\x14\x12\x12/api/v3/operations\x12{\n" +
+	"\x0fGetDependencies\x12%.jaeger.api_v3.GetDependenciesRequest\x1a#.jaeger.api_v3.DependenciesResponse\"\x1c\x82\xd3\xe4\x93\x02\x16\x12\x14/api/v3/dependencies\x12\x99\x01\n" +
+	"\x19GetIndexedAttributesNames\x12/.jaeger.api_v3.GetIndexedAttributesNamesRequest\x1a).jaeger.api_v3.GetAttributesNamesResponse\" \x82\xd3\xe4\x93\x02\x1a\x12\x18/api/v3/attributes/names\x12\x9d\x01\n" +
+	"\x16GetTopKAttributeValues\x12,.jaeger.api_v3.GetTopKAttributeValuesRequest\x1a-.jaeger.api_v3.GetTopKAttributeValuesResponse\"&\x82\xd3\xe4\x93\x02 \x12\x1e/api/v3/attributes/values/topk\x12\xa9\x01\n" +
+	"\x19GetBottomKAttributeValues\x12/.jaeger.api_v3.GetBottomKAttributeValuesRequest\x1a0.jaeger.api_v3.GetBottomKAttributeValuesResponse\")\x82\xd3\xe4\x93\x02#\x12!/api/v3/attributes/values/bottomkB\xa7\x01\n" +
 	"\x11com.jaeger.api_v3B\x11QueryServiceProtoP\x01Z.github.com/jaegertracing/jaeger-idl/gen/api_v3\xa2\x02\x03JAX\xaa\x02\fJaeger.ApiV3\xca\x02\fJaeger\\ApiV3\xe2\x02\x18Jaeger\\ApiV3\\GPBMetadata\xea\x02\rJaeger::ApiV3b\x06proto3"
 
 var (
@@ -1270,7 +1401,7 @@ func file_api_v3_query_service_proto_rawDescGZIP() []byte {
 	return file_api_v3_query_service_proto_rawDescData
 }
 
-var file_api_v3_query_service_proto_msgTypes = make([]protoimpl.MessageInfo, 19)
+var file_api_v3_query_service_proto_msgTypes = make([]protoimpl.MessageInfo, 21)
 var file_api_v3_query_service_proto_goTypes = []any{
 	(*GetTraceRequest)(nil),                          // 0: jaeger.api_v3.GetTraceRequest
 	(*TraceQueryParameters)(nil),                     // 1: jaeger.api_v3.TraceQueryParameters
@@ -1278,56 +1409,64 @@ var file_api_v3_query_service_proto_goTypes = []any{
 	(*GetServicesRequest)(nil),                       // 3: jaeger.api_v3.GetServicesRequest
 	(*GetServicesResponse)(nil),                      // 4: jaeger.api_v3.GetServicesResponse
 	(*GetOperationsRequest)(nil),                     // 5: jaeger.api_v3.GetOperationsRequest
-	(*GetHotAttributeNamesRequest)(nil),              // 6: jaeger.api_v3.GetHotAttributeNamesRequest
-	(*GetAttributeNamesResponse)(nil),                // 7: jaeger.api_v3.GetAttributeNamesResponse
-	(*GetTopKAttributeValuesRequest)(nil),            // 8: jaeger.api_v3.GetTopKAttributeValuesRequest
-	(*AttributeValueCount)(nil),                      // 9: jaeger.api_v3.AttributeValueCount
-	(*GetTopKAttributeValuesResponse)(nil),           // 10: jaeger.api_v3.GetTopKAttributeValuesResponse
-	(*GetBottomKAttributeValuesResponse)(nil),        // 11: jaeger.api_v3.GetBottomKAttributeValuesResponse
-	(*GetBottomKAttributeValuesRequest)(nil),         // 12: jaeger.api_v3.GetBottomKAttributeValuesRequest
-	(*Operation)(nil),                                // 13: jaeger.api_v3.Operation
-	(*GetOperationsResponse)(nil),                    // 14: jaeger.api_v3.GetOperationsResponse
-	(*GRPCGatewayError)(nil),                         // 15: jaeger.api_v3.GRPCGatewayError
-	(*GRPCGatewayWrapper)(nil),                       // 16: jaeger.api_v3.GRPCGatewayWrapper
-	nil,                                              // 17: jaeger.api_v3.TraceQueryParameters.AttributesEntry
-	(*GRPCGatewayError_GRPCGatewayErrorDetails)(nil), // 18: jaeger.api_v3.GRPCGatewayError.GRPCGatewayErrorDetails
-	(*timestamppb.Timestamp)(nil),                    // 19: google.protobuf.Timestamp
-	(*durationpb.Duration)(nil),                      // 20: google.protobuf.Duration
-	(*v1.TracesData)(nil),                            // 21: opentelemetry.proto.trace.v1.TracesData
+	(*Operation)(nil),                                // 6: jaeger.api_v3.Operation
+	(*GetOperationsResponse)(nil),                    // 7: jaeger.api_v3.GetOperationsResponse
+	(*GetDependenciesRequest)(nil),                   // 8: jaeger.api_v3.GetDependenciesRequest
+	(*DependenciesResponse)(nil),                     // 9: jaeger.api_v3.DependenciesResponse
+	(*Dependency)(nil),                               // 10: jaeger.api_v3.Dependency
+	(*GetIndexedAttributesNamesRequest)(nil),         // 11: jaeger.api_v3.GetIndexedAttributesNamesRequest
+	(*GetAttributesNamesResponse)(nil),               // 12: jaeger.api_v3.GetAttributesNamesResponse
+	(*GetTopKAttributeValuesRequest)(nil),            // 13: jaeger.api_v3.GetTopKAttributeValuesRequest
+	(*GetTopKAttributeValuesResponse)(nil),           // 14: jaeger.api_v3.GetTopKAttributeValuesResponse
+	(*GetBottomKAttributeValuesRequest)(nil),         // 15: jaeger.api_v3.GetBottomKAttributeValuesRequest
+	(*GetBottomKAttributeValuesResponse)(nil),        // 16: jaeger.api_v3.GetBottomKAttributeValuesResponse
+	(*GRPCGatewayError)(nil),                         // 17: jaeger.api_v3.GRPCGatewayError
+	(*GRPCGatewayWrapper)(nil),                       // 18: jaeger.api_v3.GRPCGatewayWrapper
+	nil,                                              // 19: jaeger.api_v3.TraceQueryParameters.AttributesEntry
+	(*GRPCGatewayError_GRPCGatewayErrorDetails)(nil), // 20: jaeger.api_v3.GRPCGatewayError.GRPCGatewayErrorDetails
+	(*timestamppb.Timestamp)(nil),                    // 21: google.protobuf.Timestamp
+	(*durationpb.Duration)(nil),                      // 22: google.protobuf.Duration
+	(*v1.TracesData)(nil),                            // 23: opentelemetry.proto.trace.v1.TracesData
 }
 var file_api_v3_query_service_proto_depIdxs = []int32{
-	19, // 0: jaeger.api_v3.GetTraceRequest.start_time:type_name -> google.protobuf.Timestamp
-	19, // 1: jaeger.api_v3.GetTraceRequest.end_time:type_name -> google.protobuf.Timestamp
-	17, // 2: jaeger.api_v3.TraceQueryParameters.attributes:type_name -> jaeger.api_v3.TraceQueryParameters.AttributesEntry
-	19, // 3: jaeger.api_v3.TraceQueryParameters.start_time_min:type_name -> google.protobuf.Timestamp
-	19, // 4: jaeger.api_v3.TraceQueryParameters.start_time_max:type_name -> google.protobuf.Timestamp
-	20, // 5: jaeger.api_v3.TraceQueryParameters.duration_min:type_name -> google.protobuf.Duration
-	20, // 6: jaeger.api_v3.TraceQueryParameters.duration_max:type_name -> google.protobuf.Duration
+	21, // 0: jaeger.api_v3.GetTraceRequest.start_time:type_name -> google.protobuf.Timestamp
+	21, // 1: jaeger.api_v3.GetTraceRequest.end_time:type_name -> google.protobuf.Timestamp
+	19, // 2: jaeger.api_v3.TraceQueryParameters.attributes:type_name -> jaeger.api_v3.TraceQueryParameters.AttributesEntry
+	21, // 3: jaeger.api_v3.TraceQueryParameters.start_time_min:type_name -> google.protobuf.Timestamp
+	21, // 4: jaeger.api_v3.TraceQueryParameters.start_time_max:type_name -> google.protobuf.Timestamp
+	22, // 5: jaeger.api_v3.TraceQueryParameters.duration_min:type_name -> google.protobuf.Duration
+	22, // 6: jaeger.api_v3.TraceQueryParameters.duration_max:type_name -> google.protobuf.Duration
 	1,  // 7: jaeger.api_v3.FindTracesRequest.query:type_name -> jaeger.api_v3.TraceQueryParameters
-	9,  // 8: jaeger.api_v3.GetTopKAttributeValuesResponse.values:type_name -> jaeger.api_v3.AttributeValueCount
-	9,  // 9: jaeger.api_v3.GetBottomKAttributeValuesResponse.values:type_name -> jaeger.api_v3.AttributeValueCount
-	13, // 10: jaeger.api_v3.GetOperationsResponse.operations:type_name -> jaeger.api_v3.Operation
-	18, // 11: jaeger.api_v3.GRPCGatewayError.error:type_name -> jaeger.api_v3.GRPCGatewayError.GRPCGatewayErrorDetails
-	21, // 12: jaeger.api_v3.GRPCGatewayWrapper.result:type_name -> opentelemetry.proto.trace.v1.TracesData
-	0,  // 13: jaeger.api_v3.QueryService.GetTrace:input_type -> jaeger.api_v3.GetTraceRequest
-	2,  // 14: jaeger.api_v3.QueryService.FindTraces:input_type -> jaeger.api_v3.FindTracesRequest
-	3,  // 15: jaeger.api_v3.QueryService.GetServices:input_type -> jaeger.api_v3.GetServicesRequest
-	5,  // 16: jaeger.api_v3.QueryService.GetOperations:input_type -> jaeger.api_v3.GetOperationsRequest
-	6,  // 17: jaeger.api_v3.QueryService.GetHotAttributeNames:input_type -> jaeger.api_v3.GetHotAttributeNamesRequest
-	8,  // 18: jaeger.api_v3.QueryService.GetTopKAttributeValues:input_type -> jaeger.api_v3.GetTopKAttributeValuesRequest
-	12, // 19: jaeger.api_v3.QueryService.GetBottomKAttributeValues:input_type -> jaeger.api_v3.GetBottomKAttributeValuesRequest
-	21, // 20: jaeger.api_v3.QueryService.GetTrace:output_type -> opentelemetry.proto.trace.v1.TracesData
-	21, // 21: jaeger.api_v3.QueryService.FindTraces:output_type -> opentelemetry.proto.trace.v1.TracesData
-	4,  // 22: jaeger.api_v3.QueryService.GetServices:output_type -> jaeger.api_v3.GetServicesResponse
-	14, // 23: jaeger.api_v3.QueryService.GetOperations:output_type -> jaeger.api_v3.GetOperationsResponse
-	7,  // 24: jaeger.api_v3.QueryService.GetHotAttributeNames:output_type -> jaeger.api_v3.GetAttributeNamesResponse
-	10, // 25: jaeger.api_v3.QueryService.GetTopKAttributeValues:output_type -> jaeger.api_v3.GetTopKAttributeValuesResponse
-	11, // 26: jaeger.api_v3.QueryService.GetBottomKAttributeValues:output_type -> jaeger.api_v3.GetBottomKAttributeValuesResponse
-	20, // [20:27] is the sub-list for method output_type
-	13, // [13:20] is the sub-list for method input_type
-	13, // [13:13] is the sub-list for extension type_name
-	13, // [13:13] is the sub-list for extension extendee
-	0,  // [0:13] is the sub-list for field type_name
+	6,  // 8: jaeger.api_v3.GetOperationsResponse.operations:type_name -> jaeger.api_v3.Operation
+	21, // 9: jaeger.api_v3.GetDependenciesRequest.start_time:type_name -> google.protobuf.Timestamp
+	21, // 10: jaeger.api_v3.GetDependenciesRequest.end_time:type_name -> google.protobuf.Timestamp
+	10, // 11: jaeger.api_v3.DependenciesResponse.dependencies:type_name -> jaeger.api_v3.Dependency
+	1,  // 12: jaeger.api_v3.GetIndexedAttributesNamesRequest.query:type_name -> jaeger.api_v3.TraceQueryParameters
+	1,  // 13: jaeger.api_v3.GetTopKAttributeValuesRequest.query:type_name -> jaeger.api_v3.TraceQueryParameters
+	1,  // 14: jaeger.api_v3.GetBottomKAttributeValuesRequest.query:type_name -> jaeger.api_v3.TraceQueryParameters
+	20, // 15: jaeger.api_v3.GRPCGatewayError.error:type_name -> jaeger.api_v3.GRPCGatewayError.GRPCGatewayErrorDetails
+	23, // 16: jaeger.api_v3.GRPCGatewayWrapper.result:type_name -> opentelemetry.proto.trace.v1.TracesData
+	0,  // 17: jaeger.api_v3.QueryService.GetTrace:input_type -> jaeger.api_v3.GetTraceRequest
+	2,  // 18: jaeger.api_v3.QueryService.FindTraces:input_type -> jaeger.api_v3.FindTracesRequest
+	3,  // 19: jaeger.api_v3.QueryService.GetServices:input_type -> jaeger.api_v3.GetServicesRequest
+	5,  // 20: jaeger.api_v3.QueryService.GetOperations:input_type -> jaeger.api_v3.GetOperationsRequest
+	8,  // 21: jaeger.api_v3.QueryService.GetDependencies:input_type -> jaeger.api_v3.GetDependenciesRequest
+	11, // 22: jaeger.api_v3.QueryService.GetIndexedAttributesNames:input_type -> jaeger.api_v3.GetIndexedAttributesNamesRequest
+	13, // 23: jaeger.api_v3.QueryService.GetTopKAttributeValues:input_type -> jaeger.api_v3.GetTopKAttributeValuesRequest
+	15, // 24: jaeger.api_v3.QueryService.GetBottomKAttributeValues:input_type -> jaeger.api_v3.GetBottomKAttributeValuesRequest
+	23, // 25: jaeger.api_v3.QueryService.GetTrace:output_type -> opentelemetry.proto.trace.v1.TracesData
+	23, // 26: jaeger.api_v3.QueryService.FindTraces:output_type -> opentelemetry.proto.trace.v1.TracesData
+	4,  // 27: jaeger.api_v3.QueryService.GetServices:output_type -> jaeger.api_v3.GetServicesResponse
+	7,  // 28: jaeger.api_v3.QueryService.GetOperations:output_type -> jaeger.api_v3.GetOperationsResponse
+	9,  // 29: jaeger.api_v3.QueryService.GetDependencies:output_type -> jaeger.api_v3.DependenciesResponse
+	12, // 30: jaeger.api_v3.QueryService.GetIndexedAttributesNames:output_type -> jaeger.api_v3.GetAttributesNamesResponse
+	14, // 31: jaeger.api_v3.QueryService.GetTopKAttributeValues:output_type -> jaeger.api_v3.GetTopKAttributeValuesResponse
+	16, // 32: jaeger.api_v3.QueryService.GetBottomKAttributeValues:output_type -> jaeger.api_v3.GetBottomKAttributeValuesResponse
+	25, // [25:33] is the sub-list for method output_type
+	17, // [17:25] is the sub-list for method input_type
+	17, // [17:17] is the sub-list for extension type_name
+	17, // [17:17] is the sub-list for extension extendee
+	0,  // [0:17] is the sub-list for field type_name
 }
 
 func init() { file_api_v3_query_service_proto_init() }
@@ -1341,7 +1480,7 @@ func file_api_v3_query_service_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_api_v3_query_service_proto_rawDesc), len(file_api_v3_query_service_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   19,
+			NumMessages:   21,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

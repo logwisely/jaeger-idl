@@ -45,19 +45,7 @@
       },
       "additionalProperties": {}
     },
-    "storagev2GetDependenciesResponse": {
-      "type": "object",
-      "properties": {
-        "dependencies": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/v2Dependency"
-          }
-        }
-      }
-    },
-    "v2Dependency": {
+    "storagev2Dependency": {
       "type": "object",
       "properties": {
         "parent": {
@@ -79,6 +67,18 @@
         }
       },
       "description": "Dependency represents a relationship between two services."
+    },
+    "storagev2GetDependenciesResponse": {
+      "type": "object",
+      "properties": {
+        "dependencies": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/storagev2Dependency"
+          }
+        }
+      }
     }
   }
 }
