@@ -163,6 +163,87 @@ func local_request_TraceReader_FindTraceIDs_0(ctx context.Context, marshaler run
 	return msg, metadata, err
 }
 
+func request_TraceReader_GetIndexedAttributesNames_0(ctx context.Context, marshaler runtime.Marshaler, client extStoragev2.TraceReaderClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var (
+		protoReq extStoragev2.GetIndexedAttributesNamesRequest
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if req.Body != nil {
+		_, _ = io.Copy(io.Discard, req.Body)
+	}
+	msg, err := client.GetIndexedAttributesNames(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+}
+
+func local_request_TraceReader_GetIndexedAttributesNames_0(ctx context.Context, marshaler runtime.Marshaler, server extStoragev2.TraceReaderServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var (
+		protoReq extStoragev2.GetIndexedAttributesNamesRequest
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	msg, err := server.GetIndexedAttributesNames(ctx, &protoReq)
+	return msg, metadata, err
+}
+
+func request_TraceReader_GetTopKAttributeValues_0(ctx context.Context, marshaler runtime.Marshaler, client extStoragev2.TraceReaderClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var (
+		protoReq extStoragev2.GetTopKAttributeValuesRequest
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if req.Body != nil {
+		_, _ = io.Copy(io.Discard, req.Body)
+	}
+	msg, err := client.GetTopKAttributeValues(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+}
+
+func local_request_TraceReader_GetTopKAttributeValues_0(ctx context.Context, marshaler runtime.Marshaler, server extStoragev2.TraceReaderServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var (
+		protoReq extStoragev2.GetTopKAttributeValuesRequest
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	msg, err := server.GetTopKAttributeValues(ctx, &protoReq)
+	return msg, metadata, err
+}
+
+func request_TraceReader_GetBottomKAttributeValues_0(ctx context.Context, marshaler runtime.Marshaler, client extStoragev2.TraceReaderClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var (
+		protoReq extStoragev2.GetBottomKAttributeValuesRequest
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if req.Body != nil {
+		_, _ = io.Copy(io.Discard, req.Body)
+	}
+	msg, err := client.GetBottomKAttributeValues(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+}
+
+func local_request_TraceReader_GetBottomKAttributeValues_0(ctx context.Context, marshaler runtime.Marshaler, server extStoragev2.TraceReaderServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var (
+		protoReq extStoragev2.GetBottomKAttributeValuesRequest
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	msg, err := server.GetBottomKAttributeValues(ctx, &protoReq)
+	return msg, metadata, err
+}
+
 // RegisterTraceReaderHandlerServer registers the http handlers for service TraceReader to "mux".
 // UnaryRPC     :call TraceReaderServer directly.
 // StreamingRPC :currently unsupported pending https://github.com/grpc/grpc-go/issues/906.
@@ -241,6 +322,66 @@ func RegisterTraceReaderHandlerServer(ctx context.Context, mux *runtime.ServeMux
 			return
 		}
 		forward_TraceReader_FindTraceIDs_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+	})
+	mux.Handle(http.MethodPost, pattern_TraceReader_GetIndexedAttributesNames_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/jaeger.storage.v2.TraceReader/GetIndexedAttributesNames", runtime.WithHTTPPathPattern("/jaeger.storage.v2.TraceReader/GetIndexedAttributesNames"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_TraceReader_GetIndexedAttributesNames_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		forward_TraceReader_GetIndexedAttributesNames_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+	})
+	mux.Handle(http.MethodPost, pattern_TraceReader_GetTopKAttributeValues_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/jaeger.storage.v2.TraceReader/GetTopKAttributeValues", runtime.WithHTTPPathPattern("/jaeger.storage.v2.TraceReader/GetTopKAttributeValues"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_TraceReader_GetTopKAttributeValues_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		forward_TraceReader_GetTopKAttributeValues_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+	})
+	mux.Handle(http.MethodPost, pattern_TraceReader_GetBottomKAttributeValues_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/jaeger.storage.v2.TraceReader/GetBottomKAttributeValues", runtime.WithHTTPPathPattern("/jaeger.storage.v2.TraceReader/GetBottomKAttributeValues"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_TraceReader_GetBottomKAttributeValues_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		forward_TraceReader_GetBottomKAttributeValues_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 	})
 
 	return nil
@@ -367,21 +508,78 @@ func RegisterTraceReaderHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		}
 		forward_TraceReader_FindTraceIDs_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 	})
+	mux.Handle(http.MethodPost, pattern_TraceReader_GetIndexedAttributesNames_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/jaeger.storage.v2.TraceReader/GetIndexedAttributesNames", runtime.WithHTTPPathPattern("/jaeger.storage.v2.TraceReader/GetIndexedAttributesNames"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_TraceReader_GetIndexedAttributesNames_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		forward_TraceReader_GetIndexedAttributesNames_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+	})
+	mux.Handle(http.MethodPost, pattern_TraceReader_GetTopKAttributeValues_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/jaeger.storage.v2.TraceReader/GetTopKAttributeValues", runtime.WithHTTPPathPattern("/jaeger.storage.v2.TraceReader/GetTopKAttributeValues"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_TraceReader_GetTopKAttributeValues_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		forward_TraceReader_GetTopKAttributeValues_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+	})
+	mux.Handle(http.MethodPost, pattern_TraceReader_GetBottomKAttributeValues_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/jaeger.storage.v2.TraceReader/GetBottomKAttributeValues", runtime.WithHTTPPathPattern("/jaeger.storage.v2.TraceReader/GetBottomKAttributeValues"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_TraceReader_GetBottomKAttributeValues_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		forward_TraceReader_GetBottomKAttributeValues_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+	})
 	return nil
 }
 
 var (
-	pattern_TraceReader_GetTraces_0     = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"jaeger.storage.v2.TraceReader", "GetTraces"}, ""))
-	pattern_TraceReader_GetServices_0   = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"jaeger.storage.v2.TraceReader", "GetServices"}, ""))
-	pattern_TraceReader_GetOperations_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"jaeger.storage.v2.TraceReader", "GetOperations"}, ""))
-	pattern_TraceReader_FindTraces_0    = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"jaeger.storage.v2.TraceReader", "FindTraces"}, ""))
-	pattern_TraceReader_FindTraceIDs_0  = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"jaeger.storage.v2.TraceReader", "FindTraceIDs"}, ""))
+	pattern_TraceReader_GetTraces_0                 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"jaeger.storage.v2.TraceReader", "GetTraces"}, ""))
+	pattern_TraceReader_GetServices_0               = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"jaeger.storage.v2.TraceReader", "GetServices"}, ""))
+	pattern_TraceReader_GetOperations_0             = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"jaeger.storage.v2.TraceReader", "GetOperations"}, ""))
+	pattern_TraceReader_FindTraces_0                = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"jaeger.storage.v2.TraceReader", "FindTraces"}, ""))
+	pattern_TraceReader_FindTraceIDs_0              = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"jaeger.storage.v2.TraceReader", "FindTraceIDs"}, ""))
+	pattern_TraceReader_GetIndexedAttributesNames_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"jaeger.storage.v2.TraceReader", "GetIndexedAttributesNames"}, ""))
+	pattern_TraceReader_GetTopKAttributeValues_0    = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"jaeger.storage.v2.TraceReader", "GetTopKAttributeValues"}, ""))
+	pattern_TraceReader_GetBottomKAttributeValues_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"jaeger.storage.v2.TraceReader", "GetBottomKAttributeValues"}, ""))
 )
 
 var (
-	forward_TraceReader_GetTraces_0     = runtime.ForwardResponseStream
-	forward_TraceReader_GetServices_0   = runtime.ForwardResponseMessage
-	forward_TraceReader_GetOperations_0 = runtime.ForwardResponseMessage
-	forward_TraceReader_FindTraces_0    = runtime.ForwardResponseStream
-	forward_TraceReader_FindTraceIDs_0  = runtime.ForwardResponseMessage
+	forward_TraceReader_GetTraces_0                 = runtime.ForwardResponseStream
+	forward_TraceReader_GetServices_0               = runtime.ForwardResponseMessage
+	forward_TraceReader_GetOperations_0             = runtime.ForwardResponseMessage
+	forward_TraceReader_FindTraces_0                = runtime.ForwardResponseStream
+	forward_TraceReader_FindTraceIDs_0              = runtime.ForwardResponseMessage
+	forward_TraceReader_GetIndexedAttributesNames_0 = runtime.ForwardResponseMessage
+	forward_TraceReader_GetTopKAttributeValues_0    = runtime.ForwardResponseMessage
+	forward_TraceReader_GetBottomKAttributeValues_0 = runtime.ForwardResponseMessage
 )

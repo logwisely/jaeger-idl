@@ -24,7 +24,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/api_v3GetAttributesNamesResponse"
+              "$ref": "#/definitions/jaegerapi_v3GetAttributesNamesResponse"
             }
           },
           "default": {
@@ -144,7 +144,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/api_v3GetBottomKAttributeValuesResponse"
+              "$ref": "#/definitions/jaegerapi_v3GetBottomKAttributeValuesResponse"
             }
           },
           "default": {
@@ -271,7 +271,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/api_v3GetTopKAttributeValuesResponse"
+              "$ref": "#/definitions/jaegerapi_v3GetTopKAttributeValuesResponse"
             }
           },
           "default": {
@@ -826,42 +826,6 @@
         }
       }
     },
-    "api_v3GetAttributesNamesResponse": {
-      "type": "object",
-      "properties": {
-        "names": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      },
-      "description": "Response object to get attribute names."
-    },
-    "api_v3GetBottomKAttributeValuesResponse": {
-      "type": "object",
-      "properties": {
-        "values": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      },
-      "description": "Response object to get bottom-K attribute values."
-    },
-    "api_v3GetTopKAttributeValuesResponse": {
-      "type": "object",
-      "properties": {
-        "values": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      },
-      "description": "Response object to get top-K attribute values."
-    },
     "commonv1AnyValue": {
       "type": "object",
       "properties": {
@@ -975,6 +939,30 @@
       },
       "description": "Request object to search traces."
     },
+    "jaegerapi_v3GetAttributesNamesResponse": {
+      "type": "object",
+      "properties": {
+        "names": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "Response object to get attribute names."
+    },
+    "jaegerapi_v3GetBottomKAttributeValuesResponse": {
+      "type": "object",
+      "properties": {
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "Response object to get bottom-K attribute values."
+    },
     "jaegerapi_v3GetOperationsResponse": {
       "type": "object",
       "properties": {
@@ -999,6 +987,18 @@
         }
       },
       "description": "Response object to get service names."
+    },
+    "jaegerapi_v3GetTopKAttributeValuesResponse": {
+      "type": "object",
+      "properties": {
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "Response object to get top-K attribute values."
     },
     "jaegerapi_v3Operation": {
       "type": "object",

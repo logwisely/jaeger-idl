@@ -241,6 +241,30 @@
         }
       }
     },
+    "storagev2GetAttributesNamesResponse": {
+      "type": "object",
+      "properties": {
+        "names": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "Response object to get attribute names."
+    },
+    "storagev2GetBottomKAttributeValuesResponse": {
+      "type": "object",
+      "properties": {
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "Response object to get bottom-K attribute values."
+    },
     "storagev2GetOperationsResponse": {
       "type": "object",
       "properties": {
@@ -265,6 +289,18 @@
         }
       },
       "description": "GetServicesResponse represents the response for GetServicesRequest."
+    },
+    "storagev2GetTopKAttributeValuesResponse": {
+      "type": "object",
+      "properties": {
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "Response object to get top-K attribute values."
     },
     "storagev2KeyValue": {
       "type": "object",
@@ -335,6 +371,14 @@
         "searchDepth": {
           "type": "integer",
           "format": "int32"
+        },
+        "rawTraces": {
+          "type": "boolean",
+          "description": "This field is optional."
+        },
+        "workspaceId": {
+          "type": "string",
+          "description": "Optional. The workspace ID to filter traces."
         }
       },
       "description": "TraceQueryParameters contains query parameters to find traces. For a detailed\ndefinition of each field in this message, refer to `TraceQueryParameters` in `jaeger.api_v3`\n(https://github.com/jaegertracing/jaeger-idl/blob/main/proto/api_v3/query_service.proto)."
