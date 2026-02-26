@@ -241,30 +241,6 @@
         }
       }
     },
-    "storagev2GetAttributesNamesResponse": {
-      "type": "object",
-      "properties": {
-        "names": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      },
-      "description": "Response object to get attribute names."
-    },
-    "storagev2GetBottomKAttributeValuesResponse": {
-      "type": "object",
-      "properties": {
-        "values": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      },
-      "description": "Response object to get bottom-K attribute values."
-    },
     "storagev2GetOperationsResponse": {
       "type": "object",
       "properties": {
@@ -289,18 +265,6 @@
         }
       },
       "description": "GetServicesResponse represents the response for GetServicesRequest."
-    },
-    "storagev2GetTopKAttributeValuesResponse": {
-      "type": "object",
-      "properties": {
-        "values": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      },
-      "description": "Response object to get top-K attribute values."
     },
     "storagev2KeyValue": {
       "type": "object",

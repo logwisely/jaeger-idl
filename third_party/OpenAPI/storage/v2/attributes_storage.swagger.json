@@ -1,0 +1,195 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "storage/v2/attributes_storage.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "AttributesReader"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {},
+  "definitions": {
+    "googlerpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "storagev2AnyValue": {
+      "type": "object",
+      "properties": {
+        "stringValue": {
+          "type": "string"
+        },
+        "boolValue": {
+          "type": "boolean"
+        },
+        "intValue": {
+          "type": "string",
+          "format": "int64"
+        },
+        "doubleValue": {
+          "type": "number",
+          "format": "double"
+        },
+        "arrayValue": {
+          "$ref": "#/definitions/storagev2ArrayValue"
+        },
+        "kvlistValue": {
+          "$ref": "#/definitions/storagev2KeyValueList"
+        },
+        "bytesValue": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "storagev2ArrayValue": {
+      "type": "object",
+      "properties": {
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/storagev2AnyValue"
+          }
+        }
+      }
+    },
+    "storagev2GetAttributesNamesResponse": {
+      "type": "object",
+      "properties": {
+        "names": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "Response object to get attribute names."
+    },
+    "storagev2GetBottomKAttributeValuesResponse": {
+      "type": "object",
+      "properties": {
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "Response object to get bottom-K attribute values."
+    },
+    "storagev2GetTopKAttributeValuesResponse": {
+      "type": "object",
+      "properties": {
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "Response object to get top-K attribute values."
+    },
+    "storagev2KeyValue": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "value": {
+          "$ref": "#/definitions/storagev2AnyValue"
+        }
+      },
+      "description": "KeyValue and all its associated types are copied from opentelemetry-proto/common/v1/common.proto\n(https://github.com/open-telemetry/opentelemetry-proto/blob/main/opentelemetry/proto/common/v1/common.proto).\nThis type is used to store attributes in traces."
+    },
+    "storagev2KeyValueList": {
+      "type": "object",
+      "properties": {
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/storagev2KeyValue"
+          }
+        }
+      }
+    },
+    "storagev2TraceQueryParameters": {
+      "type": "object",
+      "properties": {
+        "serviceName": {
+          "type": "string"
+        },
+        "operationName": {
+          "type": "string"
+        },
+        "attributes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/storagev2KeyValue"
+          }
+        },
+        "startTimeMin": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "startTimeMax": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "durationMin": {
+          "type": "string"
+        },
+        "durationMax": {
+          "type": "string"
+        },
+        "searchDepth": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "rawTraces": {
+          "type": "boolean",
+          "description": "This field is optional."
+        },
+        "workspaceId": {
+          "type": "string",
+          "description": "Optional. The workspace ID to filter traces."
+        }
+      },
+      "description": "TraceQueryParameters contains query parameters to find traces. For a detailed\ndefinition of each field in this message, refer to `TraceQueryParameters` in `jaeger.api_v3`\n(https://github.com/jaegertracing/jaeger-idl/blob/main/proto/api_v3/query_service.proto)."
+    }
+  }
+}
