@@ -38,7 +38,6 @@ const (
 	QueryService_FindTraces_FullMethodName                = "/jaeger.api_v3.QueryService/FindTraces"
 	QueryService_GetServices_FullMethodName               = "/jaeger.api_v3.QueryService/GetServices"
 	QueryService_GetOperations_FullMethodName             = "/jaeger.api_v3.QueryService/GetOperations"
-	QueryService_GetDependencies_FullMethodName           = "/jaeger.api_v3.QueryService/GetDependencies"
 	QueryService_GetIndexedAttributesNames_FullMethodName = "/jaeger.api_v3.QueryService/GetIndexedAttributesNames"
 	QueryService_GetTopKAttributeValues_FullMethodName    = "/jaeger.api_v3.QueryService/GetTopKAttributeValues"
 	QueryService_GetBottomKAttributeValues_FullMethodName = "/jaeger.api_v3.QueryService/GetBottomKAttributeValues"
@@ -61,7 +60,6 @@ type QueryServiceClient interface {
 	GetServices(ctx context.Context, in *GetServicesRequest, opts ...grpc.CallOption) (*GetServicesResponse, error)
 	// GetOperations returns operation names.
 	GetOperations(ctx context.Context, in *GetOperationsRequest, opts ...grpc.CallOption) (*GetOperationsResponse, error)
-	GetDependencies(ctx context.Context, in *GetDependenciesRequest, opts ...grpc.CallOption) (*DependenciesResponse, error)
 	// GetIndexedAttributesNames returns a list of indexed attribute names available for querying.
 	GetIndexedAttributesNames(ctx context.Context, in *GetIndexedAttributesNamesRequest, opts ...grpc.CallOption) (*GetAttributesNamesResponse, error)
 	// GetTopKAttributeValues returns the most frequently observed values for an attribute.
@@ -136,16 +134,6 @@ func (c *queryServiceClient) GetOperations(ctx context.Context, in *GetOperation
 	return out, nil
 }
 
-func (c *queryServiceClient) GetDependencies(ctx context.Context, in *GetDependenciesRequest, opts ...grpc.CallOption) (*DependenciesResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(DependenciesResponse)
-	err := c.cc.Invoke(ctx, QueryService_GetDependencies_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 func (c *queryServiceClient) GetIndexedAttributesNames(ctx context.Context, in *GetIndexedAttributesNamesRequest, opts ...grpc.CallOption) (*GetAttributesNamesResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(GetAttributesNamesResponse)
@@ -193,7 +181,6 @@ type QueryServiceServer interface {
 	GetServices(context.Context, *GetServicesRequest) (*GetServicesResponse, error)
 	// GetOperations returns operation names.
 	GetOperations(context.Context, *GetOperationsRequest) (*GetOperationsResponse, error)
-	GetDependencies(context.Context, *GetDependenciesRequest) (*DependenciesResponse, error)
 	// GetIndexedAttributesNames returns a list of indexed attribute names available for querying.
 	GetIndexedAttributesNames(context.Context, *GetIndexedAttributesNamesRequest) (*GetAttributesNamesResponse, error)
 	// GetTopKAttributeValues returns the most frequently observed values for an attribute.
@@ -220,9 +207,6 @@ func (UnimplementedQueryServiceServer) GetServices(context.Context, *GetServices
 }
 func (UnimplementedQueryServiceServer) GetOperations(context.Context, *GetOperationsRequest) (*GetOperationsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetOperations not implemented")
-}
-func (UnimplementedQueryServiceServer) GetDependencies(context.Context, *GetDependenciesRequest) (*DependenciesResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetDependencies not implemented")
 }
 func (UnimplementedQueryServiceServer) GetIndexedAttributesNames(context.Context, *GetIndexedAttributesNamesRequest) (*GetAttributesNamesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetIndexedAttributesNames not implemented")
@@ -311,24 +295,6 @@ func _QueryService_GetOperations_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
-func _QueryService_GetDependencies_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetDependenciesRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(QueryServiceServer).GetDependencies(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: QueryService_GetDependencies_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(QueryServiceServer).GetDependencies(ctx, req.(*GetDependenciesRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _QueryService_GetIndexedAttributesNames_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetIndexedAttributesNamesRequest)
 	if err := dec(in); err != nil {
@@ -397,10 +363,6 @@ var QueryService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetOperations",
 			Handler:    _QueryService_GetOperations_Handler,
-		},
-		{
-			MethodName: "GetDependencies",
-			Handler:    _QueryService_GetDependencies_Handler,
 		},
 		{
 			MethodName: "GetIndexedAttributesNames",

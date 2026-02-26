@@ -146,23 +146,6 @@ message GetOperationsResponse {
   repeated Operation operations = 1;
 }
 
-message GetDependenciesRequest {
-  // Required. The start time for the time range to search dependencies.
-  google.protobuf.Timestamp start_time = 1;
-  // Required. The end time for the time range to search dependencies.
-  google.protobuf.Timestamp end_time = 2;
-}
-
-message DependenciesResponse {
-  repeated Dependency dependencies = 1;
-}
-
-message Dependency {
-  string parent = 1;
-  string child = 2;
-  uint64 call_count = 3;
-}
-
 // Request object to get indexed attribute names.
 // "Indexed" attributes are the most frequently used attributes in the trace data,
 // which are often used/allowed for querying and filtering.
@@ -266,9 +249,6 @@ service QueryService {
   // GetOperations returns operation names.
   rpc GetOperations(GetOperationsRequest) returns (GetOperationsResponse) {
     option (google.api.http) = {get: "/api/v3/operations"};
-  }
-  rpc GetDependencies(GetDependenciesRequest) returns (DependenciesResponse) {
-    option (google.api.http) = {get: "/api/v3/dependencies"};
   }
 
   // GetIndexedAttributesNames returns a list of indexed attribute names available for querying.
