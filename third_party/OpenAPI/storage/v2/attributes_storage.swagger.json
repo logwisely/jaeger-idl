@@ -45,47 +45,6 @@
       },
       "additionalProperties": {}
     },
-    "storagev2AnyValue": {
-      "type": "object",
-      "properties": {
-        "stringValue": {
-          "type": "string"
-        },
-        "boolValue": {
-          "type": "boolean"
-        },
-        "intValue": {
-          "type": "string",
-          "format": "int64"
-        },
-        "doubleValue": {
-          "type": "number",
-          "format": "double"
-        },
-        "arrayValue": {
-          "$ref": "#/definitions/storagev2ArrayValue"
-        },
-        "kvlistValue": {
-          "$ref": "#/definitions/storagev2KeyValueList"
-        },
-        "bytesValue": {
-          "type": "string",
-          "format": "byte"
-        }
-      }
-    },
-    "storagev2ArrayValue": {
-      "type": "object",
-      "properties": {
-        "values": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/storagev2AnyValue"
-          }
-        }
-      }
-    },
     "storagev2GetAttributesNamesResponse": {
       "type": "object",
       "properties": {
@@ -122,45 +81,18 @@
       },
       "description": "Response object to get top-K attribute values."
     },
-    "storagev2KeyValue": {
+    "v2AttributesQueryParameters": {
       "type": "object",
       "properties": {
-        "key": {
-          "type": "string"
+        "workspaceId": {
+          "type": "string",
+          "description": "Optional. The workspace ID to filter traces."
         },
-        "value": {
-          "$ref": "#/definitions/storagev2AnyValue"
-        }
-      },
-      "description": "KeyValue and all its associated types are copied from opentelemetry-proto/common/v1/common.proto\n(https://github.com/open-telemetry/opentelemetry-proto/blob/main/opentelemetry/proto/common/v1/common.proto).\nThis type is used to store attributes in traces."
-    },
-    "storagev2KeyValueList": {
-      "type": "object",
-      "properties": {
-        "values": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/storagev2KeyValue"
-          }
-        }
-      }
-    },
-    "storagev2TraceQueryParameters": {
-      "type": "object",
-      "properties": {
         "serviceName": {
           "type": "string"
         },
         "operationName": {
           "type": "string"
-        },
-        "attributes": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/storagev2KeyValue"
-          }
         },
         "startTimeMin": {
           "type": "string",
@@ -170,26 +102,11 @@
           "type": "string",
           "format": "date-time"
         },
-        "durationMin": {
-          "type": "string"
-        },
-        "durationMax": {
-          "type": "string"
-        },
-        "searchDepth": {
+        "limit": {
           "type": "integer",
           "format": "int32"
-        },
-        "rawTraces": {
-          "type": "boolean",
-          "description": "This field is optional."
-        },
-        "workspaceId": {
-          "type": "string",
-          "description": "Optional. The workspace ID to filter traces."
         }
-      },
-      "description": "TraceQueryParameters contains query parameters to find traces. For a detailed\ndefinition of each field in this message, refer to `TraceQueryParameters` in `jaeger.api_v3`\n(https://github.com/jaegertracing/jaeger-idl/blob/main/proto/api_v3/query_service.proto)."
+      }
     }
   }
 }
