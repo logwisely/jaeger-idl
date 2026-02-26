@@ -20,14 +20,11 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	TraceReader_GetTraces_FullMethodName                 = "/jaeger.storage.v2.TraceReader/GetTraces"
-	TraceReader_GetServices_FullMethodName               = "/jaeger.storage.v2.TraceReader/GetServices"
-	TraceReader_GetOperations_FullMethodName             = "/jaeger.storage.v2.TraceReader/GetOperations"
-	TraceReader_FindTraces_FullMethodName                = "/jaeger.storage.v2.TraceReader/FindTraces"
-	TraceReader_FindTraceIDs_FullMethodName              = "/jaeger.storage.v2.TraceReader/FindTraceIDs"
-	TraceReader_GetIndexedAttributesNames_FullMethodName = "/jaeger.storage.v2.TraceReader/GetIndexedAttributesNames"
-	TraceReader_GetTopKAttributeValues_FullMethodName    = "/jaeger.storage.v2.TraceReader/GetTopKAttributeValues"
-	TraceReader_GetBottomKAttributeValues_FullMethodName = "/jaeger.storage.v2.TraceReader/GetBottomKAttributeValues"
+	TraceReader_GetTraces_FullMethodName     = "/jaeger.storage.v2.TraceReader/GetTraces"
+	TraceReader_GetServices_FullMethodName   = "/jaeger.storage.v2.TraceReader/GetServices"
+	TraceReader_GetOperations_FullMethodName = "/jaeger.storage.v2.TraceReader/GetOperations"
+	TraceReader_FindTraces_FullMethodName    = "/jaeger.storage.v2.TraceReader/FindTraces"
+	TraceReader_FindTraceIDs_FullMethodName  = "/jaeger.storage.v2.TraceReader/FindTraceIDs"
 )
 
 // TraceReaderClient is the client API for TraceReader service.
@@ -72,12 +69,6 @@ type TraceReaderClient interface {
 	// large list of trace IDs may be queried first and then the full traces are loaded
 	// in batches.
 	FindTraceIDs(ctx context.Context, in *FindTracesRequest, opts ...grpc.CallOption) (*FindTraceIDsResponse, error)
-	// GetIndexedAttributesNames returns a list of indexed attribute names available for querying.
-	GetIndexedAttributesNames(ctx context.Context, in *GetIndexedAttributesNamesRequest, opts ...grpc.CallOption) (*GetAttributesNamesResponse, error)
-	// GetTopKAttributeValues returns the most frequently observed values for an attribute.
-	GetTopKAttributeValues(ctx context.Context, in *GetTopKAttributeValuesRequest, opts ...grpc.CallOption) (*GetTopKAttributeValuesResponse, error)
-	// GetBottomKAttributeValues returns the least frequently observed values for an attribute.
-	GetBottomKAttributeValues(ctx context.Context, in *GetBottomKAttributeValuesRequest, opts ...grpc.CallOption) (*GetBottomKAttributeValuesResponse, error)
 }
 
 type traceReaderClient struct {
@@ -156,36 +147,6 @@ func (c *traceReaderClient) FindTraceIDs(ctx context.Context, in *FindTracesRequ
 	return out, nil
 }
 
-func (c *traceReaderClient) GetIndexedAttributesNames(ctx context.Context, in *GetIndexedAttributesNamesRequest, opts ...grpc.CallOption) (*GetAttributesNamesResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GetAttributesNamesResponse)
-	err := c.cc.Invoke(ctx, TraceReader_GetIndexedAttributesNames_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *traceReaderClient) GetTopKAttributeValues(ctx context.Context, in *GetTopKAttributeValuesRequest, opts ...grpc.CallOption) (*GetTopKAttributeValuesResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GetTopKAttributeValuesResponse)
-	err := c.cc.Invoke(ctx, TraceReader_GetTopKAttributeValues_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *traceReaderClient) GetBottomKAttributeValues(ctx context.Context, in *GetBottomKAttributeValuesRequest, opts ...grpc.CallOption) (*GetBottomKAttributeValuesResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GetBottomKAttributeValuesResponse)
-	err := c.cc.Invoke(ctx, TraceReader_GetBottomKAttributeValues_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // TraceReaderServer is the server API for TraceReader service.
 // All implementations should embed UnimplementedTraceReaderServer
 // for forward compatibility.
@@ -228,12 +189,6 @@ type TraceReaderServer interface {
 	// large list of trace IDs may be queried first and then the full traces are loaded
 	// in batches.
 	FindTraceIDs(context.Context, *FindTracesRequest) (*FindTraceIDsResponse, error)
-	// GetIndexedAttributesNames returns a list of indexed attribute names available for querying.
-	GetIndexedAttributesNames(context.Context, *GetIndexedAttributesNamesRequest) (*GetAttributesNamesResponse, error)
-	// GetTopKAttributeValues returns the most frequently observed values for an attribute.
-	GetTopKAttributeValues(context.Context, *GetTopKAttributeValuesRequest) (*GetTopKAttributeValuesResponse, error)
-	// GetBottomKAttributeValues returns the least frequently observed values for an attribute.
-	GetBottomKAttributeValues(context.Context, *GetBottomKAttributeValuesRequest) (*GetBottomKAttributeValuesResponse, error)
 }
 
 // UnimplementedTraceReaderServer should be embedded to have
@@ -257,15 +212,6 @@ func (UnimplementedTraceReaderServer) FindTraces(*FindTracesRequest, grpc.Server
 }
 func (UnimplementedTraceReaderServer) FindTraceIDs(context.Context, *FindTracesRequest) (*FindTraceIDsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FindTraceIDs not implemented")
-}
-func (UnimplementedTraceReaderServer) GetIndexedAttributesNames(context.Context, *GetIndexedAttributesNamesRequest) (*GetAttributesNamesResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetIndexedAttributesNames not implemented")
-}
-func (UnimplementedTraceReaderServer) GetTopKAttributeValues(context.Context, *GetTopKAttributeValuesRequest) (*GetTopKAttributeValuesResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetTopKAttributeValues not implemented")
-}
-func (UnimplementedTraceReaderServer) GetBottomKAttributeValues(context.Context, *GetBottomKAttributeValuesRequest) (*GetBottomKAttributeValuesResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetBottomKAttributeValues not implemented")
 }
 func (UnimplementedTraceReaderServer) testEmbeddedByValue() {}
 
@@ -363,60 +309,6 @@ func _TraceReader_FindTraceIDs_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
-func _TraceReader_GetIndexedAttributesNames_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetIndexedAttributesNamesRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(TraceReaderServer).GetIndexedAttributesNames(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: TraceReader_GetIndexedAttributesNames_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TraceReaderServer).GetIndexedAttributesNames(ctx, req.(*GetIndexedAttributesNamesRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _TraceReader_GetTopKAttributeValues_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetTopKAttributeValuesRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(TraceReaderServer).GetTopKAttributeValues(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: TraceReader_GetTopKAttributeValues_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TraceReaderServer).GetTopKAttributeValues(ctx, req.(*GetTopKAttributeValuesRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _TraceReader_GetBottomKAttributeValues_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetBottomKAttributeValuesRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(TraceReaderServer).GetBottomKAttributeValues(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: TraceReader_GetBottomKAttributeValues_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TraceReaderServer).GetBottomKAttributeValues(ctx, req.(*GetBottomKAttributeValuesRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // TraceReader_ServiceDesc is the grpc.ServiceDesc for TraceReader service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -435,18 +327,6 @@ var TraceReader_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "FindTraceIDs",
 			Handler:    _TraceReader_FindTraceIDs_Handler,
-		},
-		{
-			MethodName: "GetIndexedAttributesNames",
-			Handler:    _TraceReader_GetIndexedAttributesNames_Handler,
-		},
-		{
-			MethodName: "GetTopKAttributeValues",
-			Handler:    _TraceReader_GetTopKAttributeValues_Handler,
-		},
-		{
-			MethodName: "GetBottomKAttributeValues",
-			Handler:    _TraceReader_GetBottomKAttributeValues_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{
