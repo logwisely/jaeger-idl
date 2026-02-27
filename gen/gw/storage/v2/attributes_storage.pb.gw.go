@@ -90,33 +90,6 @@ func local_request_AttributesReader_GetTopKAttributeValues_0(ctx context.Context
 	return msg, metadata, err
 }
 
-func request_AttributesReader_GetBottomKAttributeValues_0(ctx context.Context, marshaler runtime.Marshaler, client extStoragev2.AttributesReaderClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var (
-		protoReq extStoragev2.GetBottomKAttributeValuesRequest
-		metadata runtime.ServerMetadata
-	)
-	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if req.Body != nil {
-		_, _ = io.Copy(io.Discard, req.Body)
-	}
-	msg, err := client.GetBottomKAttributeValues(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
-	return msg, metadata, err
-}
-
-func local_request_AttributesReader_GetBottomKAttributeValues_0(ctx context.Context, marshaler runtime.Marshaler, server extStoragev2.AttributesReaderServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var (
-		protoReq extStoragev2.GetBottomKAttributeValuesRequest
-		metadata runtime.ServerMetadata
-	)
-	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	msg, err := server.GetBottomKAttributeValues(ctx, &protoReq)
-	return msg, metadata, err
-}
-
 // RegisterAttributesReaderHandlerServer registers the http handlers for service AttributesReader to "mux".
 // UnaryRPC     :call AttributesReaderServer directly.
 // StreamingRPC :currently unsupported pending https://github.com/grpc/grpc-go/issues/906.
@@ -162,26 +135,6 @@ func RegisterAttributesReaderHandlerServer(ctx context.Context, mux *runtime.Ser
 			return
 		}
 		forward_AttributesReader_GetTopKAttributeValues_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-	})
-	mux.Handle(http.MethodPost, pattern_AttributesReader_GetBottomKAttributeValues_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
-		ctx, cancel := context.WithCancel(req.Context())
-		defer cancel()
-		var stream runtime.ServerTransportStream
-		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
-		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/jaeger.storage.v2.AttributesReader/GetBottomKAttributeValues", runtime.WithHTTPPathPattern("/jaeger.storage.v2.AttributesReader/GetBottomKAttributeValues"))
-		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
-			return
-		}
-		resp, md, err := local_request_AttributesReader_GetBottomKAttributeValues_0(annotatedContext, inboundMarshaler, server, req, pathParams)
-		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
-		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
-		if err != nil {
-			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
-			return
-		}
-		forward_AttributesReader_GetBottomKAttributeValues_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 	})
 
 	return nil
@@ -257,34 +210,15 @@ func RegisterAttributesReaderHandlerClient(ctx context.Context, mux *runtime.Ser
 		}
 		forward_AttributesReader_GetTopKAttributeValues_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 	})
-	mux.Handle(http.MethodPost, pattern_AttributesReader_GetBottomKAttributeValues_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
-		ctx, cancel := context.WithCancel(req.Context())
-		defer cancel()
-		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/jaeger.storage.v2.AttributesReader/GetBottomKAttributeValues", runtime.WithHTTPPathPattern("/jaeger.storage.v2.AttributesReader/GetBottomKAttributeValues"))
-		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
-			return
-		}
-		resp, md, err := request_AttributesReader_GetBottomKAttributeValues_0(annotatedContext, inboundMarshaler, client, req, pathParams)
-		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
-		if err != nil {
-			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
-			return
-		}
-		forward_AttributesReader_GetBottomKAttributeValues_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-	})
 	return nil
 }
 
 var (
 	pattern_AttributesReader_GetIndexedAttributesNames_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"jaeger.storage.v2.AttributesReader", "GetIndexedAttributesNames"}, ""))
 	pattern_AttributesReader_GetTopKAttributeValues_0    = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"jaeger.storage.v2.AttributesReader", "GetTopKAttributeValues"}, ""))
-	pattern_AttributesReader_GetBottomKAttributeValues_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"jaeger.storage.v2.AttributesReader", "GetBottomKAttributeValues"}, ""))
 )
 
 var (
 	forward_AttributesReader_GetIndexedAttributesNames_0 = runtime.ForwardResponseMessage
 	forward_AttributesReader_GetTopKAttributeValues_0    = runtime.ForwardResponseMessage
-	forward_AttributesReader_GetBottomKAttributeValues_0 = runtime.ForwardResponseMessage
 )

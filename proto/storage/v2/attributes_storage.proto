@@ -48,28 +48,9 @@ message GetTopKAttributeValuesResponse {
   repeated string values = 1;
 }
 
-// Request object to get bottom-K attribute values.
-message GetBottomKAttributeValuesRequest {
-  string workspace_id = 1;
-  string service_name = 2;
-  string operation_name = 3;
-  string attribute_name = 4;
-  AttributesQueryParameters query = 5;
-  // Optional. Number of values to return. If unset or <=0, the server chooses a default.
-  int32 k = 6;
-}
-
-// Response object to get bottom-K attribute values.
-message GetBottomKAttributeValuesResponse {
-  repeated string values = 1;
-}
-
 service AttributesReader {
   rpc GetIndexedAttributesNames(GetIndexedAttributesNamesRequest) returns (GetAttributesNamesResponse) {}
 
   // GetTopKAttributeValues returns the most frequently observed values for an attribute.
   rpc GetTopKAttributeValues(GetTopKAttributeValuesRequest) returns (GetTopKAttributeValuesResponse) {}
-
-  // GetBottomKAttributeValues returns the least frequently observed values for an attribute.
-  rpc GetBottomKAttributeValues(GetBottomKAttributeValuesRequest) returns (GetBottomKAttributeValuesResponse) {}
 }

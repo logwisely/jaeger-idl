@@ -355,137 +355,6 @@ func (x *GetTopKAttributeValuesResponse) GetValues() []string {
 	return nil
 }
 
-// Request object to get bottom-K attribute values.
-type GetBottomKAttributeValuesRequest struct {
-	state         protoimpl.MessageState     `protogen:"open.v1"`
-	WorkspaceId   string                     `protobuf:"bytes,1,opt,name=workspace_id,json=workspaceId,proto3" json:"workspace_id,omitempty"`
-	ServiceName   string                     `protobuf:"bytes,2,opt,name=service_name,json=serviceName,proto3" json:"service_name,omitempty"`
-	OperationName string                     `protobuf:"bytes,3,opt,name=operation_name,json=operationName,proto3" json:"operation_name,omitempty"`
-	AttributeName string                     `protobuf:"bytes,4,opt,name=attribute_name,json=attributeName,proto3" json:"attribute_name,omitempty"`
-	Query         *AttributesQueryParameters `protobuf:"bytes,5,opt,name=query,proto3" json:"query,omitempty"`
-	// Optional. Number of values to return. If unset or <=0, the server chooses a default.
-	K             int32 `protobuf:"varint,6,opt,name=k,proto3" json:"k,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *GetBottomKAttributeValuesRequest) Reset() {
-	*x = GetBottomKAttributeValuesRequest{}
-	mi := &file_storage_v2_attributes_storage_proto_msgTypes[5]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *GetBottomKAttributeValuesRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetBottomKAttributeValuesRequest) ProtoMessage() {}
-
-func (x *GetBottomKAttributeValuesRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_storage_v2_attributes_storage_proto_msgTypes[5]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GetBottomKAttributeValuesRequest.ProtoReflect.Descriptor instead.
-func (*GetBottomKAttributeValuesRequest) Descriptor() ([]byte, []int) {
-	return file_storage_v2_attributes_storage_proto_rawDescGZIP(), []int{5}
-}
-
-func (x *GetBottomKAttributeValuesRequest) GetWorkspaceId() string {
-	if x != nil {
-		return x.WorkspaceId
-	}
-	return ""
-}
-
-func (x *GetBottomKAttributeValuesRequest) GetServiceName() string {
-	if x != nil {
-		return x.ServiceName
-	}
-	return ""
-}
-
-func (x *GetBottomKAttributeValuesRequest) GetOperationName() string {
-	if x != nil {
-		return x.OperationName
-	}
-	return ""
-}
-
-func (x *GetBottomKAttributeValuesRequest) GetAttributeName() string {
-	if x != nil {
-		return x.AttributeName
-	}
-	return ""
-}
-
-func (x *GetBottomKAttributeValuesRequest) GetQuery() *AttributesQueryParameters {
-	if x != nil {
-		return x.Query
-	}
-	return nil
-}
-
-func (x *GetBottomKAttributeValuesRequest) GetK() int32 {
-	if x != nil {
-		return x.K
-	}
-	return 0
-}
-
-// Response object to get bottom-K attribute values.
-type GetBottomKAttributeValuesResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Values        []string               `protobuf:"bytes,1,rep,name=values,proto3" json:"values,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *GetBottomKAttributeValuesResponse) Reset() {
-	*x = GetBottomKAttributeValuesResponse{}
-	mi := &file_storage_v2_attributes_storage_proto_msgTypes[6]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *GetBottomKAttributeValuesResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetBottomKAttributeValuesResponse) ProtoMessage() {}
-
-func (x *GetBottomKAttributeValuesResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_storage_v2_attributes_storage_proto_msgTypes[6]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GetBottomKAttributeValuesResponse.ProtoReflect.Descriptor instead.
-func (*GetBottomKAttributeValuesResponse) Descriptor() ([]byte, []int) {
-	return file_storage_v2_attributes_storage_proto_rawDescGZIP(), []int{6}
-}
-
-func (x *GetBottomKAttributeValuesResponse) GetValues() []string {
-	if x != nil {
-		return x.Values
-	}
-	return nil
-}
-
 var File_storage_v2_attributes_storage_proto protoreflect.FileDescriptor
 
 const file_storage_v2_attributes_storage_proto_rawDesc = "" +
@@ -513,20 +382,10 @@ const file_storage_v2_attributes_storage_proto_rawDesc = "" +
 	"\x05query\x18\x05 \x01(\v2,.jaeger.storage.v2.AttributesQueryParametersR\x05query\x12\f\n" +
 	"\x01k\x18\x06 \x01(\x05R\x01k\"8\n" +
 	"\x1eGetTopKAttributeValuesResponse\x12\x16\n" +
-	"\x06values\x18\x01 \x03(\tR\x06values\"\x88\x02\n" +
-	" GetBottomKAttributeValuesRequest\x12!\n" +
-	"\fworkspace_id\x18\x01 \x01(\tR\vworkspaceId\x12!\n" +
-	"\fservice_name\x18\x02 \x01(\tR\vserviceName\x12%\n" +
-	"\x0eoperation_name\x18\x03 \x01(\tR\roperationName\x12%\n" +
-	"\x0eattribute_name\x18\x04 \x01(\tR\rattributeName\x12B\n" +
-	"\x05query\x18\x05 \x01(\v2,.jaeger.storage.v2.AttributesQueryParametersR\x05query\x12\f\n" +
-	"\x01k\x18\x06 \x01(\x05R\x01k\";\n" +
-	"!GetBottomKAttributeValuesResponse\x12\x16\n" +
-	"\x06values\x18\x01 \x03(\tR\x06values2\xa2\x03\n" +
+	"\x06values\x18\x01 \x03(\tR\x06values2\x97\x02\n" +
 	"\x10AttributesReader\x12\x81\x01\n" +
 	"\x19GetIndexedAttributesNames\x123.jaeger.storage.v2.GetIndexedAttributesNamesRequest\x1a-.jaeger.storage.v2.GetAttributesNamesResponse\"\x00\x12\x7f\n" +
-	"\x16GetTopKAttributeValues\x120.jaeger.storage.v2.GetTopKAttributeValuesRequest\x1a1.jaeger.storage.v2.GetTopKAttributeValuesResponse\"\x00\x12\x88\x01\n" +
-	"\x19GetBottomKAttributeValues\x123.jaeger.storage.v2.GetBottomKAttributeValuesRequest\x1a4.jaeger.storage.v2.GetBottomKAttributeValuesResponse\"\x00B\xd3\x01\n" +
+	"\x16GetTopKAttributeValues\x120.jaeger.storage.v2.GetTopKAttributeValuesRequest\x1a1.jaeger.storage.v2.GetTopKAttributeValuesResponse\"\x00B\xd3\x01\n" +
 	"\x15com.jaeger.storage.v2B\x16AttributesStorageProtoP\x01Z<github.com/jaegertracing/jaeger-idl/gen/storage/v2;storagev2\xa2\x02\x03JSX\xaa\x02\x11Jaeger.Storage.V2\xca\x02\x11Jaeger\\Storage\\V2\xe2\x02\x1dJaeger\\Storage\\V2\\GPBMetadata\xea\x02\x13Jaeger::Storage::V2b\x06proto3"
 
 var (
@@ -541,34 +400,29 @@ func file_storage_v2_attributes_storage_proto_rawDescGZIP() []byte {
 	return file_storage_v2_attributes_storage_proto_rawDescData
 }
 
-var file_storage_v2_attributes_storage_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
+var file_storage_v2_attributes_storage_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
 var file_storage_v2_attributes_storage_proto_goTypes = []any{
-	(*AttributesQueryParameters)(nil),         // 0: jaeger.storage.v2.AttributesQueryParameters
-	(*GetIndexedAttributesNamesRequest)(nil),  // 1: jaeger.storage.v2.GetIndexedAttributesNamesRequest
-	(*GetAttributesNamesResponse)(nil),        // 2: jaeger.storage.v2.GetAttributesNamesResponse
-	(*GetTopKAttributeValuesRequest)(nil),     // 3: jaeger.storage.v2.GetTopKAttributeValuesRequest
-	(*GetTopKAttributeValuesResponse)(nil),    // 4: jaeger.storage.v2.GetTopKAttributeValuesResponse
-	(*GetBottomKAttributeValuesRequest)(nil),  // 5: jaeger.storage.v2.GetBottomKAttributeValuesRequest
-	(*GetBottomKAttributeValuesResponse)(nil), // 6: jaeger.storage.v2.GetBottomKAttributeValuesResponse
-	(*timestamppb.Timestamp)(nil),             // 7: google.protobuf.Timestamp
+	(*AttributesQueryParameters)(nil),        // 0: jaeger.storage.v2.AttributesQueryParameters
+	(*GetIndexedAttributesNamesRequest)(nil), // 1: jaeger.storage.v2.GetIndexedAttributesNamesRequest
+	(*GetAttributesNamesResponse)(nil),       // 2: jaeger.storage.v2.GetAttributesNamesResponse
+	(*GetTopKAttributeValuesRequest)(nil),    // 3: jaeger.storage.v2.GetTopKAttributeValuesRequest
+	(*GetTopKAttributeValuesResponse)(nil),   // 4: jaeger.storage.v2.GetTopKAttributeValuesResponse
+	(*timestamppb.Timestamp)(nil),            // 5: google.protobuf.Timestamp
 }
 var file_storage_v2_attributes_storage_proto_depIdxs = []int32{
-	7, // 0: jaeger.storage.v2.AttributesQueryParameters.start_time_min:type_name -> google.protobuf.Timestamp
-	7, // 1: jaeger.storage.v2.AttributesQueryParameters.start_time_max:type_name -> google.protobuf.Timestamp
+	5, // 0: jaeger.storage.v2.AttributesQueryParameters.start_time_min:type_name -> google.protobuf.Timestamp
+	5, // 1: jaeger.storage.v2.AttributesQueryParameters.start_time_max:type_name -> google.protobuf.Timestamp
 	0, // 2: jaeger.storage.v2.GetIndexedAttributesNamesRequest.query:type_name -> jaeger.storage.v2.AttributesQueryParameters
 	0, // 3: jaeger.storage.v2.GetTopKAttributeValuesRequest.query:type_name -> jaeger.storage.v2.AttributesQueryParameters
-	0, // 4: jaeger.storage.v2.GetBottomKAttributeValuesRequest.query:type_name -> jaeger.storage.v2.AttributesQueryParameters
-	1, // 5: jaeger.storage.v2.AttributesReader.GetIndexedAttributesNames:input_type -> jaeger.storage.v2.GetIndexedAttributesNamesRequest
-	3, // 6: jaeger.storage.v2.AttributesReader.GetTopKAttributeValues:input_type -> jaeger.storage.v2.GetTopKAttributeValuesRequest
-	5, // 7: jaeger.storage.v2.AttributesReader.GetBottomKAttributeValues:input_type -> jaeger.storage.v2.GetBottomKAttributeValuesRequest
-	2, // 8: jaeger.storage.v2.AttributesReader.GetIndexedAttributesNames:output_type -> jaeger.storage.v2.GetAttributesNamesResponse
-	4, // 9: jaeger.storage.v2.AttributesReader.GetTopKAttributeValues:output_type -> jaeger.storage.v2.GetTopKAttributeValuesResponse
-	6, // 10: jaeger.storage.v2.AttributesReader.GetBottomKAttributeValues:output_type -> jaeger.storage.v2.GetBottomKAttributeValuesResponse
-	8, // [8:11] is the sub-list for method output_type
-	5, // [5:8] is the sub-list for method input_type
-	5, // [5:5] is the sub-list for extension type_name
-	5, // [5:5] is the sub-list for extension extendee
-	0, // [0:5] is the sub-list for field type_name
+	1, // 4: jaeger.storage.v2.AttributesReader.GetIndexedAttributesNames:input_type -> jaeger.storage.v2.GetIndexedAttributesNamesRequest
+	3, // 5: jaeger.storage.v2.AttributesReader.GetTopKAttributeValues:input_type -> jaeger.storage.v2.GetTopKAttributeValuesRequest
+	2, // 6: jaeger.storage.v2.AttributesReader.GetIndexedAttributesNames:output_type -> jaeger.storage.v2.GetAttributesNamesResponse
+	4, // 7: jaeger.storage.v2.AttributesReader.GetTopKAttributeValues:output_type -> jaeger.storage.v2.GetTopKAttributeValuesResponse
+	6, // [6:8] is the sub-list for method output_type
+	4, // [4:6] is the sub-list for method input_type
+	4, // [4:4] is the sub-list for extension type_name
+	4, // [4:4] is the sub-list for extension extendee
+	0, // [0:4] is the sub-list for field type_name
 }
 
 func init() { file_storage_v2_attributes_storage_proto_init() }
@@ -582,7 +436,7 @@ func file_storage_v2_attributes_storage_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_storage_v2_attributes_storage_proto_rawDesc), len(file_storage_v2_attributes_storage_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   7,
+			NumMessages:   5,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
