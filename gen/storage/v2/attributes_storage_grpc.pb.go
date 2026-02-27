@@ -21,7 +21,6 @@ const _ = grpc.SupportPackageIsVersion9
 const (
 	AttributesReader_GetIndexedAttributesNames_FullMethodName = "/jaeger.storage.v2.AttributesReader/GetIndexedAttributesNames"
 	AttributesReader_GetTopKAttributeValues_FullMethodName    = "/jaeger.storage.v2.AttributesReader/GetTopKAttributeValues"
-	AttributesReader_GetBottomKAttributeValues_FullMethodName = "/jaeger.storage.v2.AttributesReader/GetBottomKAttributeValues"
 )
 
 // AttributesReaderClient is the client API for AttributesReader service.
@@ -31,8 +30,6 @@ type AttributesReaderClient interface {
 	GetIndexedAttributesNames(ctx context.Context, in *GetIndexedAttributesNamesRequest, opts ...grpc.CallOption) (*GetAttributesNamesResponse, error)
 	// GetTopKAttributeValues returns the most frequently observed values for an attribute.
 	GetTopKAttributeValues(ctx context.Context, in *GetTopKAttributeValuesRequest, opts ...grpc.CallOption) (*GetTopKAttributeValuesResponse, error)
-	// GetBottomKAttributeValues returns the least frequently observed values for an attribute.
-	GetBottomKAttributeValues(ctx context.Context, in *GetBottomKAttributeValuesRequest, opts ...grpc.CallOption) (*GetBottomKAttributeValuesResponse, error)
 }
 
 type attributesReaderClient struct {
@@ -63,16 +60,6 @@ func (c *attributesReaderClient) GetTopKAttributeValues(ctx context.Context, in 
 	return out, nil
 }
 
-func (c *attributesReaderClient) GetBottomKAttributeValues(ctx context.Context, in *GetBottomKAttributeValuesRequest, opts ...grpc.CallOption) (*GetBottomKAttributeValuesResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GetBottomKAttributeValuesResponse)
-	err := c.cc.Invoke(ctx, AttributesReader_GetBottomKAttributeValues_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // AttributesReaderServer is the server API for AttributesReader service.
 // All implementations should embed UnimplementedAttributesReaderServer
 // for forward compatibility.
@@ -80,8 +67,6 @@ type AttributesReaderServer interface {
 	GetIndexedAttributesNames(context.Context, *GetIndexedAttributesNamesRequest) (*GetAttributesNamesResponse, error)
 	// GetTopKAttributeValues returns the most frequently observed values for an attribute.
 	GetTopKAttributeValues(context.Context, *GetTopKAttributeValuesRequest) (*GetTopKAttributeValuesResponse, error)
-	// GetBottomKAttributeValues returns the least frequently observed values for an attribute.
-	GetBottomKAttributeValues(context.Context, *GetBottomKAttributeValuesRequest) (*GetBottomKAttributeValuesResponse, error)
 }
 
 // UnimplementedAttributesReaderServer should be embedded to have
@@ -96,9 +81,6 @@ func (UnimplementedAttributesReaderServer) GetIndexedAttributesNames(context.Con
 }
 func (UnimplementedAttributesReaderServer) GetTopKAttributeValues(context.Context, *GetTopKAttributeValuesRequest) (*GetTopKAttributeValuesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTopKAttributeValues not implemented")
-}
-func (UnimplementedAttributesReaderServer) GetBottomKAttributeValues(context.Context, *GetBottomKAttributeValuesRequest) (*GetBottomKAttributeValuesResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetBottomKAttributeValues not implemented")
 }
 func (UnimplementedAttributesReaderServer) testEmbeddedByValue() {}
 
@@ -156,24 +138,6 @@ func _AttributesReader_GetTopKAttributeValues_Handler(srv interface{}, ctx conte
 	return interceptor(ctx, in, info, handler)
 }
 
-func _AttributesReader_GetBottomKAttributeValues_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetBottomKAttributeValuesRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AttributesReaderServer).GetBottomKAttributeValues(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: AttributesReader_GetBottomKAttributeValues_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AttributesReaderServer).GetBottomKAttributeValues(ctx, req.(*GetBottomKAttributeValuesRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // AttributesReader_ServiceDesc is the grpc.ServiceDesc for AttributesReader service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -188,10 +152,6 @@ var AttributesReader_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetTopKAttributeValues",
 			Handler:    _AttributesReader_GetTopKAttributeValues_Handler,
-		},
-		{
-			MethodName: "GetBottomKAttributeValues",
-			Handler:    _AttributesReader_GetBottomKAttributeValues_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

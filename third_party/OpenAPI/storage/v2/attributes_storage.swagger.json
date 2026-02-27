@@ -57,18 +57,6 @@
       },
       "description": "Response object to get attribute names."
     },
-    "storagev2GetBottomKAttributeValuesResponse": {
-      "type": "object",
-      "properties": {
-        "values": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      },
-      "description": "Response object to get bottom-K attribute values."
-    },
     "storagev2GetTopKAttributeValuesResponse": {
       "type": "object",
       "properties": {

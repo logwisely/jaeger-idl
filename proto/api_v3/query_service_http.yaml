@@ -16,5 +16,3 @@ http:
       get: /api/v3/attributes/indexed/names
     - selector: jaeger.api_v3.QueryService.GetTopKAttributeValues
       get: /api/v3/attributes/values/topk
-    - selector: jaeger.api_v3.QueryService.GetBottomKAttributeValues
-      get: /api/v3/attributes/values/bottomk
